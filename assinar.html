@@ -634,8 +634,8 @@
             },
             daily: {
                 id: 'daily',
-                name: 'Pulse Diario',
-                badge: 'Diario',
+                name: 'Pulse Diário',
+                badge: 'Diário',
                 badgeHighlight: true,
                 price: 'R$ 397',
                 period: '/ mes',
@@ -671,21 +671,21 @@
 
         function renderPlans(apiData) {
             allPlans = [
-                { ...PLAN_META.daily, link: apiData.daily_plan_link_url },
                 { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url },
+                { ...PLAN_META.daily, link: apiData.daily_plan_link_url },
             ];
 
             const container = document.getElementById('plans-list');
             container.innerHTML = '';
 
             allPlans.forEach((plan, i) => {
-                const isFirst = i === 0;
-                if (isFirst) selectedPlan = plan;
+                const isSelected = plan.id === 'daily';
+                if (isSelected) selectedPlan = plan;
 
                 const card = document.createElement('div');
-                card.className = 'plan-card' + (isFirst ? ' selected' : '');
+                card.className = 'plan-card' + (isSelected ? ' selected' : '');
                 card.setAttribute('role', 'radio');
-                card.setAttribute('aria-checked', isFirst ? 'true' : 'false');
+                card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
                 card.setAttribute('tabindex', '0');
                 card.dataset.planId = plan.id;
 
