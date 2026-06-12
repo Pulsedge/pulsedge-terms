@@ -595,7 +595,7 @@
         };
 
         /* ─────────────────────────────────────────────
-           Validação do lead_link.id (parâmetro "h=")
+           Validação do lead_link.id (parâmetro "l=")
            junto ao seu endpoint de backend.
       
            Retorno esperado do endpoint:
@@ -607,7 +607,7 @@
             if (!leadLinkId) return { valid: false, reason: 'expired' };
 
             try {
-                const res = await fetch(`https://api.pulsedge.com.br/subscribe?h=${encodeURIComponent(leadLinkId)}`);
+                const res = await fetch(`https://api.pulsedge.com.br/subscribe?l=${encodeURIComponent(leadLinkId)}`);
 
                 if (res.ok) {
                     const data = await res.json();
@@ -716,7 +716,7 @@
         ───────────────────────────────────────────── */
         (async () => {
             const params = new URLSearchParams(window.location.search);
-            const hash = params.get('h') || '';
+            const hash = params.get('l') || '';
 
             showState('state-loading');
 
