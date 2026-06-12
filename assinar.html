@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assinar Plano — Pulsedge</title>
+    <meta name="description" content="Escolha o seu plano de assinatura Pulsedge." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/pulsedge_icon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f5f5f7;
+            --surface: #ffffff;
+            --navy: #1a2b4a;
+            --accent: #1462f5;
+            --accent-soft: rgba(20, 98, 245, 0.07);
+            --accent-ring: rgba(20, 98, 245, 0.30);
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --text: #111827;
+            --radius: 12px;
+        }
+
+        html,
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* ── Layout ── */
+        .page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            height: 32px;
+            display: block;
+        }
+
+        header span {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.3px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 48px 16px 64px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px 16px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: underline;
+        }
+
+        /* ── States visibility ── */
+        .state {
+            display: none;
+        }
+
+        .state.active {
+            display: block;
+        }
+
+        /* ── Loading ── */
+        #state-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 340px;
+        }
+
+        #state-loading.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Checkout ── */
+        #state-checkout .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        #state-checkout h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.4px;
+            margin-bottom: 6px;
+            text-wrap: balance;
+        }
+
+        #state-checkout .subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        /* Plans */
+        .plans {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .plan-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+            position: relative;
+            user-select: none;
+        }
+
+        .plan-card:hover {
+            border-color: #93b4fb;
+        }
+
+        .plan-card.selected {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            box-shadow: 0 0 0 3px var(--accent-ring);
+        }
+
+        .plan-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .plan-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .plan-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .plan-price span {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--muted);
+        }
+
+        .plan-desc {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .plan-radio {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .plan-card.selected .plan-radio {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .plan-radio-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .plan-card.selected .plan-radio-dot {
+            opacity: 1;
+        }
+
+        /* Consent */
+        .consent-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+
+        .consent-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .consent-label input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 5px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+            background: white;
+            position: relative;
+        }
+
+        .consent-label input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .consent-label input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 1px;
+            width: 8px;
+            height: 5px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg);
+        }
+
+        .consent-text {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .consent-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .consent-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA */
+        .btn-cta {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: opacity 0.15s, background 0.15s;
+            letter-spacing: -0.1px;
+        }
+
+        .btn-cta:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-cta:not(:disabled):hover {
+            background: #0d50d4;
+        }
+
+        .asaas-note {
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        /* ── Expired ── */
+        #state-expired {
+            text-align: center;
+        }
+
+        #state-expired.active {
+            display: block;
+        }
+
+        .expired-illustration {
+            margin: 0 auto 28px;
+            display: block;
+        }
+
+        #state-expired h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+        }
+
+        #state-expired p {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 360px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+        }
+
+        .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--navy);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .btn-contact:hover {
+            background: #26396a;
+        }
+
+        /* ── Error ── */
+        #state-error {
+            text-align: center;
+        }
+
+        #state-error.active {
+            display: block;
+        }
+
+        .error-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #fef2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 22px;
+        }
+
+        #state-error h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        #state-error p {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 340px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+
+        /* ── Responsive ── */
+        @media (min-width: 520px) {
+            .plan-header {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <header>
+            <img src="/pulsedge_icon.png" alt="Pulsedge" />
+        </header>
+
+        <main>
+            <div class="container">
+
+                <!-- Estado 1: Carregando -->
+                <div id="state-loading" class="state active" role="status" aria-label="Carregando">
+                    <div class="spinner"></div>
+                </div>
+
+                <!-- Estado 2: Checkout válido -->
+                <div id="state-checkout" class="state">
+                    <p class="section-label">Pulsedge &mdash; Assinatura</p>
+                    <h1>Escolha o seu plano</h1>
+                    <p class="subtitle">Selecione a frequência que melhor se encaixa na sua rotina.</p>
+
+                    <div class="plans" id="plans-list">
+                        <!-- cards injetados via JS -->
+                    </div>
+
+                    <div class="consent-wrap">
+                        <label class="consent-label">
+                            <input type="checkbox" id="consent-check" />
+                            <span class="consent-text">
+                                Li e concordo com os
+                                <a href="/termos" target="_blank" rel="noopener">Termos de Serviço</a>
+                                e a
+                                <a href="/privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+                                da Pulsedge.
+                            </span>
+                        </label>
+                    </div>
+
+                    <button class="btn-cta" id="btn-subscribe" disabled>
+                        Ir para o pagamento
+                    </button>
+                    <p class="asaas-note">Pagamento processado com segurança pela plataforma Asaas.</p>
+                </div>
+
+                <!-- Estado 3: Link expirado -->
+                <div id="state-expired" class="state">
+                    <svg class="expired-illustration" width="180" height="160" viewBox="0 0 180 160" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <!-- Folha principal -->
+                        <ellipse cx="90" cy="100" rx="44" ry="52" fill="#e8f0fe" transform="rotate(-18 90 100)" />
+                        <ellipse cx="90" cy="100" rx="44" ry="52" fill="none" stroke="#1462f5" stroke-width="2"
+                            stroke-dasharray="6 4" transform="rotate(-18 90 100)" />
+                        <!-- Nervura central -->
+                        <path d="M78 140 Q88 108 96 72" stroke="#1462f5" stroke-width="1.8" stroke-linecap="round"
+                            fill="none" opacity="0.5" />
+                        <!-- Nervuras laterais -->
+                        <path d="M86 128 Q74 122 70 114" stroke="#1462f5" stroke-width="1.2" stroke-linecap="round"
+                            fill="none" opacity="0.4" />
+                        <path d="M88 118 Q76 110 73 101" stroke="#1462f5" stroke-width="1.2" stroke-linecap="round"
+                            fill="none" opacity="0.4" />
+                        <path d="M91 106 Q82 100 80 91" stroke="#1462f5" stroke-width="1.2" stroke-linecap="round"
+                            fill="none" opacity="0.4" />
+                        <!-- Ramos de vento -->
+                        <path d="M40 60 Q56 52 72 62 Q88 72 104 58" stroke="#9ca3af" stroke-width="1.8"
+                            stroke-linecap="round" fill="none" />
+                        <path d="M28 80 Q48 70 68 80 Q88 90 108 74" stroke="#9ca3af" stroke-width="1.5"
+                            stroke-linecap="round" fill="none" opacity="0.7" />
+                        <path d="M50 44 Q64 38 76 46 Q88 54 100 40" stroke="#9ca3af" stroke-width="1.3"
+                            stroke-linecap="round" fill="none" opacity="0.5" />
+                        <!-- Relógio -->
+                        <circle cx="124" cy="44" r="20" fill="#1a2b4a" />
+                        <circle cx="124" cy="44" r="16" fill="#f5f5f7" />
+                        <line x1="124" y1="44" x2="124" y2="33" stroke="#1a2b4a" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="124" y1="44" x2="131" y2="49" stroke="#1462f5" stroke-width="2"
+                            stroke-linecap="round" />
+                        <circle cx="124" cy="44" r="2" fill="#1a2b4a" />
+                        <!-- X no canto -->
+                        <circle cx="148" cy="24" r="10" fill="#fef2f2" />
+                        <line x1="144" y1="20" x2="152" y2="28" stroke="#ef4444" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="152" y1="20" x2="144" y2="28" stroke="#ef4444" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+
+                    <h2>Este link expirou</h2>
+                    <p>O link de assinatura tem validade limitada e não pode mais ser utilizado. Entre em contato com a
+                        equipe Pulsedge para receber um novo link.</p>
+                    <a class="btn-contact" href="mailto:suporte@pulsedge.com.br">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        Falar com o suporte
+                    </a>
+                </div>
+
+                <!-- Estado 4: Erro técnico -->
+                <div id="state-error" class="state">
+                    <div class="error-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                    </div>
+                    <h2>Não foi possível carregar</h2>
+                    <p>Ocorreu um erro ao validar seu link. Tente novamente em alguns instantes ou entre em contato com
+                        o suporte.</p>
+                    <a class="btn-contact" href="mailto:suporte@pulsedge.com.br">Falar com o suporte</a>
+                </div>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>Pulsedge &mdash; Inteligência de Mercado &bull; MEI &mdash; Vinícius Pereira Barbosa</p>
+            <p>
+                <a href="/termos">Termos de Serviço</a> &bull;
+                <a href="/privacidade">Política de Privacidade</a> &bull;
+                <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ─────────────────────────────────────────────
+           Definição base dos planos (nomes, preços, descrições).
+           Os links de pagamento NÃO são fixos — cada prospecto
+           tem links individuais retornados pelo endpoint.
+        ───────────────────────────────────────────── */
+        const PLAN_META = {
+            weekly: {
+                id: 'weekly',
+                name: 'Pulse Semanal',
+                price: 'R$ 197',
+                period: '/ mês',
+                desc: 'Entrega toda segunda às 7h com o resumo da semana.',
+            },
+            daily: {
+                id: 'daily',
+                name: 'Pulse Diário',
+                price: 'R$ 397',
+                period: '/ mês',
+                desc: 'Entrega semanal + terça a sábado às 7h com as mudanças do dia.',
+            },
+        };
+
+        /* ─────────────────────────────────────────────
+           Validação do lead_link.id (parâmetro "h=")
+           junto ao seu endpoint de backend.
+      
+           Retorno esperado do endpoint:
+             Válido:   { valid: true,  weekly_plan_link_url: "...", daily_plan_link_url: "..." }
+             Expirado: { valid: false, reason: "expired" }
+             Erro:     { valid: false, reason: "error" }   (ou qualquer outro valor)
+        ───────────────────────────────────────────── */
+        async function validateLink(leadLinkId) {
+            if (!leadLinkId) return { valid: false, reason: 'expired' };
+
+            try {
+                const res = await fetch(`https://api.pulsedge.com.br/subscribe?h=${encodeURIComponent(leadLinkId)}`);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    return { valid: true, ...data };
+                }
+
+                if (res.status === 422) return { valid: false, reason: 'expired' };
+
+                return { valid: false, reason: 'error' };
+            } catch {
+                return { valid: false, reason: 'error' };
+            }
+        }
+
+        /* ─────────────────────────────────────────────
+           Renderização dos cards de plano
+           apiData: { weekly_plan_link_url, daily_plan_link_url }
+        ───────────────────────────────────────────── */
+        let selectedPlan = null;
+
+        function renderPlans(apiData) {
+            const plans = [
+                { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url },
+                { ...PLAN_META.daily, link: apiData.daily_plan_link_url },
+            ];
+
+            const container = document.getElementById('plans-list');
+            container.innerHTML = '';
+
+            plans.forEach((plan, i) => {
+                const card = document.createElement('div');
+                card.className = 'plan-card' + (i === 0 ? ' selected' : '');
+                card.setAttribute('role', 'radio');
+                card.setAttribute('aria-checked', i === 0 ? 'true' : 'false');
+                card.setAttribute('tabindex', '0');
+                card.dataset.planId = plan.id;
+
+                if (i === 0) selectedPlan = plan; // pré-seleciona o Semanal
+
+                card.innerHTML = `
+        <div class="plan-header">
+          <div>
+            <div class="plan-name">${plan.name}</div>
+            <div class="plan-desc">${plan.desc}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="text-align:right">
+              <div class="plan-price">${plan.price}<span>${plan.period}</span></div>
+            </div>
+            <div class="plan-radio"><div class="plan-radio-dot"></div></div>
+          </div>
+        </div>
+      `;
+
+                card.addEventListener('click', () => selectPlan(plan.id, plans));
+                card.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectPlan(plan.id, plans); }
+                });
+
+                container.appendChild(card);
+            });
+
+            updateCTA();
+        }
+
+        function selectPlan(planId, plans) {
+            selectedPlan = plans.find(p => p.id === planId);
+            document.querySelectorAll('.plan-card').forEach(card => {
+                const isSelected = card.dataset.planId === planId;
+                card.classList.toggle('selected', isSelected);
+                card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+            });
+            updateCTA();
+        }
+
+        function updateCTA() {
+            const consent = document.getElementById('consent-check').checked;
+            const btn = document.getElementById('btn-subscribe');
+            btn.disabled = !(selectedPlan && consent);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('consent-check').addEventListener('change', updateCTA);
+
+            document.getElementById('btn-subscribe').addEventListener('click', () => {
+                if (!selectedPlan) return;
+                const url = selectedPlan.link;
+                if (!url || url === '#') {
+                    alert('Link de pagamento não configurado. Contate o suporte.');
+                    return;
+                }
+                window.location.href = url;
+            });
+        });
+
+        /* ─────────────────────────────────────────────
+           Controle de estados
+        ───────────────────────────────────────────── */
+        function showState(id) {
+            document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        /* ─────────────────────────────────────────────
+           Inicialização
+        ───────────────────────────────────────────── */
+        (async () => {
+            const params = new URLSearchParams(window.location.search);
+            const hash = params.get('h') || '';
+
+            showState('state-loading');
+
+            try {
+                const result = await validateLink(hash);
+
+                if (result.valid) {
+                    renderPlans(result);
+                    showState('state-checkout');
+                } else if (result.reason === 'expired') {
+                    showState('state-expired');
+                } else {
+                    showState('state-error');
+                }
+            } catch (err) {
+                showState('state-error');
+            }
+        })();
+    </script>
+</body>
+
+</html>
