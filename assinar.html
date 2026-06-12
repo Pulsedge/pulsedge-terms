@@ -58,7 +58,7 @@
         }
 
         header img {
-            height: 84px;
+            height: 50px;
             display: block;
         }
 
@@ -667,8 +667,8 @@
 
         function renderPlans(apiData) {
             allPlans = [
-                { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url },
                 { ...PLAN_META.daily, link: apiData.daily_plan_link_url },
+                { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url },
             ];
 
             const container = document.getElementById('plans-list');
