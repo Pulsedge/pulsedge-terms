@@ -621,7 +621,7 @@
             weekly: {
                 id: 'weekly',
                 name: 'Pulse Semanal',
-                badge: 'Semanal',
+                badge: 'Básico',
                 badgeHighlight: false,
                 price: 'R$ 197',
                 period: '/ mes',
@@ -635,7 +635,7 @@
             daily: {
                 id: 'daily',
                 name: 'Pulse Diário',
-                badge: 'Diário',
+                badge: 'Mais completo',
                 badgeHighlight: true,
                 price: 'R$ 397',
                 period: '/ mes',
@@ -694,7 +694,7 @@
                     .join('');
 
                 const badgeHtml = plan.badgeHighlight
-                    ? `<span class="plan-badge highlight">${plan.badge} &mdash; Mais completo</span>`
+                    ? `<span class="plan-badge highlight">${plan.badge}</span>`
                     : `<span class="plan-badge">${plan.badge}</span>`;
 
                 card.innerHTML = `
