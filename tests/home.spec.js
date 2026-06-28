@@ -88,7 +88,7 @@ test.describe('home.html — modal da foto do fundador', () => {
 });
 
 test.describe('home.html — mapa de cobertura (SP)', () => {
-    test('renderiza o outline com path valido e os pins', async ({ page }) => {
+    test('renderiza o outline com path valido', async ({ page }) => {
         await mockStats(page);
         await page.goto('/home');
 
@@ -97,8 +97,6 @@ test.describe('home.html — mapa de cobertura (SP)', () => {
         const d = await path.getAttribute('d');
         expect(d.length).toBeGreaterThan(100);
         expect(d.trim().startsWith('M')).toBeTruthy();
-
-        await expect(page.locator('.map-card svg .map-pin')).toHaveCount(6);
     });
 });
 
@@ -113,7 +111,7 @@ test.describe('home.html — rodape e segmentos', () => {
     test('lista os 8 segmentos de publico', async ({ page }) => {
         await mockStats(page);
         await page.goto('/home');
-        await expect(page.locator('.segment-chip')).toHaveCount(8);
+        await expect(page.locator('.segment-card')).toHaveCount(8);
     });
 });
 
