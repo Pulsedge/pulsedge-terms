@@ -21,3 +21,24 @@ test.describe('termos.html', () => {
         await expect(page.locator('#footer-year')).toHaveText(year);
     });
 });
+
+test.describe('termos.html — menu hamburguer no mobile', () => {
+    test.use({ viewport: { width: 375, height: 700 } });
+
+    test('nav fica oculta e hamburguer visivel; clique abre e mostra Inicio e Privacidade', async ({ page }) => {
+        await page.goto('/termos');
+
+        const nav = page.locator('#header-nav');
+        const toggle = page.locator('#menu-toggle');
+
+        await expect(nav).toBeHidden();
+        await expect(toggle).toBeVisible();
+
+        await toggle.click();
+
+        await expect(nav).toBeVisible();
+        await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        await expect(nav.getByText('Início')).toBeVisible();
+        await expect(nav.getByText('Política de Privacidade')).toBeVisible();
+    });
+});

@@ -7,11 +7,11 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 
 const routes = {
-    '/': 'home.html',
-    '/home': 'home.html',
-    '/termos': 'termos.html',
-    '/privacidade': 'privacidade.html',
-    '/assinar': 'assinar.html',
+    '/': 'pages/home.html',
+    '/home': 'pages/home.html',
+    '/termos': 'pages/termos.html',
+    '/privacidade': 'pages/privacidade.html',
+    '/assinar': 'pages/assinar.html',
 };
 
 const mimeTypes = {

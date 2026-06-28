@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /assinar
+Sitemap: https://pulsedge.com.br/sitemap.xml

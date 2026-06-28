@@ -21,3 +21,24 @@ test.describe('privacidade.html', () => {
         await expect(page.locator('#footer-year')).toHaveText(year);
     });
 });
+
+test.describe('privacidade.html — menu hamburguer no mobile', () => {
+    test.use({ viewport: { width: 375, height: 700 } });
+
+    test('nav fica oculta e hamburguer visivel; clique abre e mostra Inicio e Termos', async ({ page }) => {
+        await page.goto('/privacidade');
+
+        const nav = page.locator('#header-nav');
+        const toggle = page.locator('#menu-toggle');
+
+        await expect(nav).toBeHidden();
+        await expect(toggle).toBeVisible();
+
+        await toggle.click();
+
+        await expect(nav).toBeVisible();
+        await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        await expect(nav.getByText('Início')).toBeVisible();
+        await expect(nav.getByText('Termos de Serviço')).toBeVisible();
+    });
+});

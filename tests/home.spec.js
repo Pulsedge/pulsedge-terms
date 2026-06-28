@@ -116,3 +116,39 @@ test.describe('home.html — rodape e segmentos', () => {
         await expect(page.locator('.segment-chip')).toHaveCount(8);
     });
 });
+
+test.describe('home.html — menu hamburguer no mobile', () => {
+    test.use({ viewport: { width: 375, height: 700 } });
+
+    test('nav fica oculta e hamburguer visivel; clique abre e mostra os links institucionais', async ({ page }) => {
+        await mockStats(page);
+        await page.goto('/home');
+
+        const nav = page.locator('#header-nav');
+        const toggle = page.locator('#menu-toggle');
+
+        await expect(nav).toBeHidden();
+        await expect(toggle).toBeVisible();
+        await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+        await toggle.click();
+
+        await expect(nav).toBeVisible();
+        await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        await expect(nav.getByText('Termos de Serviço')).toBeVisible();
+        await expect(nav.getByText('Política de Privacidade')).toBeVisible();
+
+        await toggle.click();
+        await expect(nav).toBeHidden();
+        await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test('em viewport desktop a nav fica visivel e o hamburguer oculto', async ({ page }) => {
+        await page.setViewportSize({ width: 1280, height: 800 });
+        await mockStats(page);
+        await page.goto('/home');
+
+        await expect(page.locator('#header-nav')).toBeVisible();
+        await expect(page.locator('#menu-toggle')).toBeHidden();
+    });
+});

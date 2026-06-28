@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/pulsedge_icon.png">
-    <title>Pulsedge — Inteligência de mercado para licenciamento ambiental</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Pulsedge — Inteligência de mercado.</title>
     <meta name="description"
-        content="A Pulsedge monitora diariamente os processos de licenciamento ambiental da CETESB e entrega oportunidades de negócio direto no seu e-mail." />
+        content="Chegue primeiro. Sempre. Inteligência de mercado que monitora oportunidades comerciais em processos de licenciamento ambiental antes da concorrência." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -121,6 +121,19 @@
         .header-nav a:hover {
             background: rgba(255, 255, 255, 0.14);
             border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            padding: 6px;
+            margin: -6px;
+            cursor: pointer;
+            color: #ffffff;
+            line-height: 0;
         }
 
         /* Hero */
@@ -491,15 +504,37 @@
 
         @media (max-width: 600px) {
             header {
+                height: 72px;
+                padding: 0 20px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .header-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
                 flex-direction: column;
-                justify-content: center;
-                gap: 12px;
-                height: auto;
-                padding: 16px;
+                gap: 10px;
+                background: var(--navy);
+                padding: 16px 20px 20px;
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+            }
+
+            .header-nav.open {
+                display: flex;
+            }
+
+            .header-nav a {
+                text-align: center;
             }
 
             .hero {
-                padding-top: 200px;
+                padding-top: 128px;
             }
 
             .hero h1 {
@@ -533,10 +568,17 @@
                     <img src="https://res.cloudinary.com/dgtq4n4uw/image/upload/v1779911164/pulsedge_logo_white_yukeu1.png"
                         alt="Pulsedge" />
                 </a>
-                <nav class="header-nav">
+                <nav class="header-nav" id="header-nav">
                     <a href="/termos">Termos de Serviço</a>
                     <a href="/privacidade">Política de Privacidade</a>
                 </nav>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false"
+                    aria-controls="header-nav">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
             </header>
 
             <!-- Hero -->
@@ -635,14 +677,6 @@
                                     precisar acessar nenhum sistema.</span>
                             </div>
                         </div>
-                        <div class="step">
-                            <div class="step-num">4</div>
-                            <div>
-                                <strong>Nota fiscal em toda assinatura</strong>
-                                <span>Toda cobrança mensal gera nota fiscal de serviço emitida do nosso CNPJ
-                                    para o CNPJ da sua empresa &mdash; sem burocracia adicional.</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -709,6 +743,13 @@
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
 
+        const menuToggle = document.getElementById('menu-toggle');
+        const headerNav = document.getElementById('header-nav');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = headerNav.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
         const header = document.querySelector('header');
         const heroWrap = document.querySelector('.hero-wrap');
         function updateHeaderOnScroll() {
@@ -733,29 +774,16 @@
             return Number(n).toLocaleString('pt-BR');
         }
 
-        function animateCount(el, target, duration = 1800) {
-            const tailSteps = Math.min(4, Math.max(target - 1, 0));
-            const rampTarget = Math.max(1, target - tailSteps);
+        function animateCount(el, target, duration = 3000) {
             const start = performance.now();
-
-            function stepTail(current) {
-                if (current >= target) return;
-                setTimeout(() => {
-                    current += 1;
-                    el.textContent = formatInt(current) + '+';
-                    stepTail(current);
-                }, 480);
-            }
 
             function tick(now) {
                 const progress = Math.min((now - start) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 5);
-                const value = Math.max(1, Math.round(eased * rampTarget));
+                const eased = 1 - Math.pow(1 - progress, 7);
+                const value = Math.max(1, Math.round(eased * target));
                 el.textContent = formatInt(value) + '+';
                 if (progress < 1) {
                     requestAnimationFrame(tick);
-                } else {
-                    stepTail(rampTarget);
                 }
             }
             requestAnimationFrame(tick);

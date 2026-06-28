@@ -4,7 +4,7 @@
         {
             "source": "/",
             "destination": "/home",
-            "permanent": false
+            "permanent": true
         },
         {
             "source": "/:path*",
@@ -17,5 +17,11 @@
             "destination": "https://pulsedge.com.br/:path*",
             "permanent": true
         }
+    ],
+    "rewrites": [
+        { "source": "/home", "destination": "/pages/home.html" },
+        { "source": "/termos", "destination": "/pages/termos.html" },
+        { "source": "/privacidade", "destination": "/pages/privacidade.html" },
+        { "source": "/assinar", "destination": "/pages/assinar.html" }
     ]
 }

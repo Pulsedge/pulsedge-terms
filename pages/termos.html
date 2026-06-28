@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/pulsedge_icon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <title>Termos de Serviço — Pulsedge</title>
+    <meta name="description"
+        content="Termos de Serviço da Pulsedge — condições de uso do serviço de inteligência de mercado ambiental." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
@@ -101,6 +103,19 @@
         .header-nav a:hover {
             background: rgba(255, 255, 255, 0.14);
             border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            padding: 6px;
+            margin: -6px;
+            cursor: pointer;
+            color: #ffffff;
+            line-height: 0;
         }
 
         main {
@@ -213,19 +228,37 @@
 
         @media (max-width: 600px) {
             header {
-                flex-direction: column;
-                justify-content: center;
-                gap: 12px;
-                height: auto;
-                padding: 16px;
+                height: 72px;
+                padding: 0 20px;
             }
 
             .page {
-                padding-top: 168px;
+                padding-top: 72px;
+            }
+
+            .menu-toggle {
+                display: flex;
             }
 
             .header-nav {
-                gap: 16px;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 10px;
+                background: var(--navy);
+                padding: 16px 20px 20px;
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+            }
+
+            .header-nav.open {
+                display: flex;
+            }
+
+            .header-nav a {
+                text-align: center;
             }
 
             h1 {
@@ -249,10 +282,16 @@
                 <img src="https://res.cloudinary.com/dgtq4n4uw/image/upload/v1779911164/pulsedge_logo_white_yukeu1.png"
                     alt="Pulsedge" />
             </a>
-            <nav class="header-nav">
+            <nav class="header-nav" id="header-nav">
                 <a href="/home">Início</a>
                 <a href="/privacidade">Política de Privacidade</a>
             </nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false"
+                aria-controls="header-nav">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
         </header>
 
         <!-- Conteúdo principal -->
@@ -471,6 +510,13 @@
     </div>
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const headerNav = document.getElementById('header-nav');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = headerNav.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
     </script>
 </body>
 
