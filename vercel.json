@@ -3,7 +3,7 @@
     "redirects": [
         {
             "source": "/",
-            "destination": "/termos",
+            "destination": "/home",
             "permanent": false
         },
         {

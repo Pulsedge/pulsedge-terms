@@ -10,7 +10,8 @@
     <link rel="icon" href="/pulsedge_icon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
+        rel="stylesheet" />
     <style>
         *,
         *::before,
@@ -43,18 +44,36 @@
             min-height: 100vh;
         }
 
+        @keyframes page-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .page {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding-top: 88px;
         }
 
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             background: var(--navy);
             padding: 0 32px;
             height: 88px;
             display: flex;
             align-items: center;
+            z-index: 100;
         }
 
         header img {
@@ -97,7 +116,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 100;
+            z-index: 200;
         }
 
         #state-loading.hidden {
@@ -125,6 +144,7 @@
 
         .state.active {
             display: block;
+            animation: page-fade-in 0.45s ease-out;
         }
 
         /* Checkout */
@@ -138,8 +158,9 @@
         }
 
         #state-checkout h1 {
+            font-family: 'Lora', Georgia, serif;
             font-size: 28px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--navy);
             letter-spacing: -0.5px;
             margin-bottom: 8px;
@@ -149,6 +170,178 @@
             font-size: 15px;
             color: var(--muted);
             margin-bottom: 40px;
+        }
+
+        /* Mockup da planilha */
+        .sheet-mockup {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px -12px rgba(26, 43, 74, 0.18);
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .sheet-mockup-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #f3f3f3;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .sheet-mockup-bar svg {
+            flex-shrink: 0;
+        }
+
+        .sheet-callouts {
+            display: flex;
+            gap: 10px;
+            padding: 16px 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .callout-chip {
+            flex: 1 1 auto;
+            min-width: 150px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.35;
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+
+        .callout-chip::after {
+            content: '\2193';
+            display: block;
+            text-align: center;
+            font-weight: 400;
+            opacity: 0.55;
+            margin-top: 2px;
+        }
+
+        .callout-chip.group-a {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .callout-chip.group-b {
+            background: rgba(26, 43, 74, 0.07);
+            color: var(--navy);
+        }
+
+        .callout-chip.group-c {
+            background: #fff7ec;
+            color: #92660f;
+        }
+
+        .sheet-table-wrap {
+            overflow-x: auto;
+            padding: 12px 16px 4px;
+        }
+
+        .sheet-table {
+            border-collapse: collapse;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .sheet-table th,
+        .sheet-table td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .sheet-table th {
+            background: #fafafa;
+            font-weight: 600;
+            color: var(--navy);
+            border-top: 3px solid transparent;
+        }
+
+        .sheet-table th.group-a,
+        .sheet-table td.group-a {
+            background: var(--accent-soft);
+        }
+
+        .sheet-table th.group-a {
+            border-top-color: var(--accent);
+        }
+
+        .sheet-table th.group-b,
+        .sheet-table td.group-b {
+            background: rgba(26, 43, 74, 0.045);
+        }
+
+        .sheet-table th.group-b {
+            border-top-color: var(--navy);
+        }
+
+        .sheet-table th.group-c,
+        .sheet-table td.group-c {
+            background: #fffaf2;
+        }
+
+        .sheet-table th.group-c {
+            border-top-color: #d99a2b;
+        }
+
+        .sheet-table tbody tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        .sheet-table tbody tr:nth-child(even) td.group-a {
+            background-color: rgba(20, 98, 245, 0.1);
+        }
+
+        .sheet-table tbody tr:nth-child(even) td.group-b {
+            background-color: rgba(26, 43, 74, 0.07);
+        }
+
+        .sheet-table tbody tr:nth-child(even) td.group-c {
+            background-color: #fef3e0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .status-dot.ok {
+            background: #16a34a;
+        }
+
+        .status-dot.pending {
+            background: #d99a2b;
+        }
+
+        .status-dot.archived {
+            background: #9ca3af;
+        }
+
+        .sheet-table td.doc-link {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .sheet-hint {
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            padding: 0 16px 14px;
+        }
+
+        @media (max-width: 600px) {
+            .sheet-callouts {
+                flex-direction: column;
+            }
         }
 
         .plans {
@@ -385,6 +578,73 @@
             color: var(--muted);
             text-align: center;
             margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .asaas-note svg {
+            flex-shrink: 0;
+        }
+
+        /* FAQ */
+        .faq {
+            margin-top: 32px;
+        }
+
+        .faq-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 14px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--muted);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+
+        .faq-item[open] summary::after {
+            content: '\2212';
+        }
+
+        .faq-item p {
+            padding: 0 18px 16px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         /* Expired */
@@ -495,6 +755,7 @@
             text-decoration: none;
         }
     </style>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -505,7 +766,7 @@
 
     <div class="page">
         <header>
-            <a href="https://pulsedge.com.br" aria-label="Página Inicial Pulsedge">
+            <a href="/home" aria-label="Página Inicial Pulsedge">
                 <img src="https://res.cloudinary.com/dgtq4n4uw/image/upload/v1779911164/pulsedge_logo_white_yukeu1.png"
                     alt="Pulsedge" />
             </a>
@@ -519,6 +780,83 @@
                     <p class="section-label">Assinatura &mdash; Pulse</p>
                     <h1>Escolha seu plano</h1>
                     <p class="subtitle">Inteligência de mercado &mdash; chegue antes da concorrência.</p>
+
+                    <div class="sheet-mockup">
+                        <div class="sheet-mockup-bar">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <path d="M14 2v6h6" />
+                            </svg>
+                            Diario_Licencas_Ambientais.xlsx &mdash; exemplo ilustrativo
+                        </div>
+                        <div class="sheet-callouts">
+                            <span class="callout-chip group-a">Monitoramos a CETESB por você</span>
+                            <span class="callout-chip group-b">Dados da empresa, enriquecidos automaticamente</span>
+                            <span class="callout-chip group-c">Tudo rastreável, com o documento oficial</span>
+                        </div>
+                        <div class="sheet-table-wrap">
+                            <table class="sheet-table">
+                                <thead>
+                                    <tr>
+                                        <th class="group-a">Status Atual</th>
+                                        <th class="group-a">Tipo de Processo</th>
+                                        <th class="group-a">Solicitação CETESB</th>
+                                        <th class="group-b">CNPJ</th>
+                                        <th class="group-b">Razão Social</th>
+                                        <th class="group-b">Telefones</th>
+                                        <th class="group-b">E-mail</th>
+                                        <th class="group-c">Nome do Empreendimento</th>
+                                        <th class="group-c">Endereço do Empreendimento</th>
+                                        <th class="group-c">Observação</th>
+                                        <th class="group-c">Documentos disponíveis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="group-a"><span class="status-dot ok"></span>Emitido</td>
+                                        <td class="group-a">Licença de Operação</td>
+                                        <td class="group-a">90001234</td>
+                                        <td class="group-b">12.345.678/0001-90</td>
+                                        <td class="group-b">Indústria Exemplo Ltda</td>
+                                        <td class="group-b">(11) 4002-8922</td>
+                                        <td class="group-b">contato@exemplo.com.br</td>
+                                        <td class="group-c">Galpão Exemplo I</td>
+                                        <td class="group-c">Limeira, SP</td>
+                                        <td class="group-c">&mdash;</td>
+                                        <td class="group-c doc-link">Ver PDF &#8599;</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="group-a"><span class="status-dot pending"></span>Em análise</td>
+                                        <td class="group-a">Parecer Técnico</td>
+                                        <td class="group-a">90001235</td>
+                                        <td class="group-b">98.765.432/0001-10</td>
+                                        <td class="group-b">Agropecuária Modelo S/A</td>
+                                        <td class="group-b">(19) 99876-5432</td>
+                                        <td class="group-b">financeiro@modelo.com.br</td>
+                                        <td class="group-c">Fazenda Modelo</td>
+                                        <td class="group-c">Piracicaba, SP</td>
+                                        <td class="group-c">&mdash;</td>
+                                        <td class="group-c">&mdash;</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="group-a"><span class="status-dot archived"></span>Arquivado</td>
+                                        <td class="group-a">Certidão de Desmembramento</td>
+                                        <td class="group-a">90001236</td>
+                                        <td class="group-b">11.222.333/0001-44</td>
+                                        <td class="group-b">Construtora Horizonte Ltda</td>
+                                        <td class="group-b">(15) 3411-2200</td>
+                                        <td class="group-b">juridico@horizonte.com.br</td>
+                                        <td class="group-c">Loteamento Horizonte Sul</td>
+                                        <td class="group-c">Sorocaba, SP</td>
+                                        <td class="group-c">Pendência documental</td>
+                                        <td class="group-c doc-link">Ver PDF &#8599;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="sheet-hint">&larr; deslize para o lado para ver todas as colunas &rarr;</p>
+                    </div>
 
                     <div class="plans" id="plans-list"></div>
 
@@ -540,7 +878,39 @@
                     <button class="btn-cta" id="btn-subscribe" disabled>
                         Prosseguir para pagamento &rarr;
                     </button>
-                    <p class="asaas-note">Você será redirecionado para o ambiente seguro de pagamento do Asaas.</p>
+                    <p class="asaas-note">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        Pagamento processado pelo ambiente seguro do Asaas.
+                    </p>
+
+                    <div class="faq">
+                        <p class="faq-title">Perguntas frequentes</p>
+                        <details class="faq-item">
+                            <summary>Posso cancelar quando quiser?</summary>
+                            <p>Sim, a qualquer momento, sem multa, solicitando por e-mail. O cancelamento interrompe
+                                a renovação automática do próximo período; o acesso ao serviço é mantido até o fim do
+                                período já pago.</p>
+                        </details>
+                        <details class="faq-item">
+                            <summary>O pagamento é seguro?</summary>
+                            <p>Sim. O processamento é feito pelo Asaas, gateway de pagamentos regulado, com cartão,
+                                PIX ou boleto. A Pulsedge não armazena dados de cartão.</p>
+                        </details>
+                        <details class="faq-item">
+                            <summary>De onde vêm os dados das planilhas?</summary>
+                            <p>Coletamos diariamente o portal público da CETESB e enriquecemos cada registro com
+                                dados públicos da Receita Federal e da plataforma e-Ambiente.</p>
+                        </details>
+                        <details class="faq-item">
+                            <summary>O que muda depois que eu assinar?</summary>
+                            <p>Você passa a receber, por e-mail, a planilha Excel com as movimentações nos horários
+                                do plano escolhido — sem instalar nada ou acessar qualquer painel.</p>
+                        </details>
+                    </div>
                 </div>
 
                 <!-- Estado 3: Link expirado -->
@@ -613,7 +983,8 @@
         <footer>
             <p>Dados coletados de fontes públicas: CETESB, e-Ambiente, Receita Federal.</p>
             <p>Informações de fontes públicas. Não constituem garantia de oportunidade ou resultado.</p>
-            <p>&copy; 2026 Pulsedge &bull; Vinícius Pereira Barbosa &bull; MEI</p>
+            <p>&copy; <span id="footer-year"></span> Pulsedge &mdash; operado por Vinícius Pereira Barbosa &bull;
+                65.606.332/0001-60 &bull; Piracicaba, SP, Brasil</p>
             <p>Dúvidas? <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a></p>
         </footer>
     </div>
@@ -625,13 +996,12 @@
                 name: 'Pulse Semanal',
                 badge: 'Básico',
                 badgeHighlight: false,
-                price: 'R$ 197',
                 period: '/ mês',
                 features: [
-                    'Entrega toda segunda-feira às 7h',
+                    'Entrega toda segunda-feira às 7h (horário de Brasília)',
                     'Resumo semanal completo das movimentações',
                     'Planilha Excel com dados enriquecidos (CNPJ, contatos, endereço, CNAE)',
-                    'Monitoramento do portal CETESB-SP',
+                    'Monitoramento do portal CETESB',
                 ],
             },
             daily: {
@@ -639,15 +1009,18 @@
                 name: 'Pulse Diário',
                 badge: 'Mais completo',
                 badgeHighlight: true,
-                price: 'R$ 397',
                 period: '/ mês',
                 features: [
                     'Tudo do Pulse Semanal',
-                    'Entregas de terça a sábado às 7h com movimentações do dia anterior',
+                    'Entregas de terça a sábado às 7h (horário de Brasília) com movimentações do dia anterior',
                     'Cobertura diária para não perder nenhuma oportunidade',
                 ],
             },
         };
+
+        function formatPrice(value) {
+            return 'R$ ' + Number(value).toFixed(2).replace('.', ',').replace(',00', '');
+        }
 
         async function validateLink(leadLinkId) {
             if (!leadLinkId) return { valid: false, reason: 'expired' };
@@ -673,8 +1046,8 @@
 
         function renderPlans(apiData) {
             allPlans = [
-                { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url },
-                { ...PLAN_META.daily, link: apiData.daily_plan_link_url },
+                { ...PLAN_META.weekly, link: apiData.weekly_plan_link_url, price: formatPrice(apiData.weekly_plan_price) },
+                { ...PLAN_META.daily, link: apiData.daily_plan_link_url, price: formatPrice(apiData.daily_plan_price) },
             ];
 
             const container = document.getElementById('plans-list');
@@ -739,6 +1112,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
             document.getElementById('consent-check').addEventListener('change', updateCTA);
             document.getElementById('btn-subscribe').addEventListener('click', () => {
                 if (!selectedPlan) return;

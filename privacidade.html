@@ -8,7 +8,8 @@
     <title>Política de Privacidade — Pulsedge</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
+        rel="stylesheet" />
     <style>
         *,
         *::before,
@@ -40,24 +41,66 @@
             min-height: 100vh;
         }
 
+        @keyframes page-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .page {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding-top: 88px;
+            animation: page-fade-in 0.45s ease-out;
         }
 
-        /* Header idêntico ao assinar.html */
+        /* Header com logo + nav institucional */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             background: var(--navy);
             padding: 0 32px;
             height: 88px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            z-index: 100;
         }
 
         header img {
             height: 50px;
             display: block;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .header-nav a {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 9px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            transition: background 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+
+        .header-nav a:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         main {
@@ -82,8 +125,9 @@
         }
 
         h1 {
+            font-family: 'Lora', Georgia, serif;
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--navy);
             letter-spacing: -0.5px;
             margin-bottom: 6px;
@@ -206,8 +250,19 @@
 
         @media (max-width: 600px) {
             header {
+                flex-direction: column;
                 justify-content: center;
-                padding: 0 16px;
+                gap: 12px;
+                height: auto;
+                padding: 16px;
+            }
+
+            .page {
+                padding-top: 168px;
+            }
+
+            .header-nav {
+                gap: 16px;
             }
 
             h1 {
@@ -219,6 +274,7 @@
             }
         }
     </style>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -226,10 +282,14 @@
 
         <!-- Header -->
         <header>
-            <a href="https://pulsedge.com.br" aria-label="Página Inicial Pulsedge">
+            <a href="/home" aria-label="Página Inicial Pulsedge">
                 <img src="https://res.cloudinary.com/dgtq4n4uw/image/upload/v1779911164/pulsedge_logo_white_yukeu1.png"
                     alt="Pulsedge" />
             </a>
+            <nav class="header-nav">
+                <a href="/home">Início</a>
+                <a href="/termos">Termos de Serviço</a>
+            </nav>
         </header>
 
         <!-- Conteúdo principal -->
@@ -238,7 +298,7 @@
 
                 <p class="doc-label">Política de Privacidade</p>
                 <h1>Política de Privacidade</h1>
-                <p class="updated">Última atualização: 10 de março de 2026</p>
+                <p class="updated">Última atualização: 28 de junho de 2026</p>
 
                 <p><strong>A Pulsedge respeita sua privacidade.</strong> Esta política explica como coletamos,
                     usamos e protegemos seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados
@@ -341,7 +401,20 @@
                     <li><strong>Acesso:</strong> restrito ao operador do serviço (Vinícius Pereira Barbosa).</li>
                     <li><strong>Backup:</strong> cópias de segurança realizadas periodicamente pelo Supabase.</li>
                     <li><strong>Monitoramento:</strong> erros e incidentes monitorados via Sentry.</li>
+                    <li><strong>Transferência internacional:</strong> alguns dos prestadores acima (ex.: Google
+                        Workspace, Sentry) podem processar ou armazenar dados em servidores localizados fora do
+                        Brasil. Esse tratamento é realizado com base no legítimo interesse e na execução do
+                        contrato (Art. 7º, V e IX da LGPD), e os prestadores envolvidos adotam padrões
+                        internacionais de proteção de dados e segurança da informação.</li>
                 </ul>
+
+                <div class="highlight">
+                    <p><strong>Notificação de incidentes de segurança.</strong> Em caso de incidente de
+                        segurança que possa acarretar risco ou dano relevante aos titulares, a Pulsedge
+                        notificará a Autoridade Nacional de Proteção de Dados (ANPD) e os titulares afetados em
+                        prazo razoável, nos termos do art. 48 da LGPD, informando a natureza dos dados afetados,
+                        as medidas técnicas adotadas e as recomendações ao titular.</p>
+                </div>
 
                 <h2>6. Retenção de Dados</h2>
                 <ul>
@@ -350,6 +423,9 @@
                     <li><strong>Após cancelamento:</strong> dados conservados por 5 (cinco) anos para cumprimento
                         de obrigações fiscais e legais.</li>
                     <li><strong>Após 5 anos:</strong> dados anonimizados ou excluídos permanentemente.</li>
+                    <li><strong>Dados de terceiros (empresas monitoradas):</strong> os dados coletados das fontes
+                        públicas (CETESB, e-Ambiente, Receita Federal) são mantidos por até 1 (um) ano a partir
+                        da coleta, após o qual são excluídos da base de dados da Pulsedge.</li>
                 </ul>
 
                 <h2>7. Seus Direitos (LGPD)</h2>
@@ -365,6 +441,9 @@
                     <li><strong>Oposição</strong> — opor-se a tratamentos baseados em legítimo interesse.</li>
                     <li><strong>Informação sobre compartilhamento</strong> — saber com quem seus dados são
                         compartilhados.</li>
+                    <li><strong>Petição à ANPD</strong> — apresentar reclamação à Autoridade Nacional de
+                        Proteção de Dados (ANPD) caso entenda que seus dados não estão sendo tratados conforme a
+                        LGPD.</li>
                 </ul>
                 <p><strong>Para exercer seus direitos, entre em contato:</strong><br>
                     E-mail: <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a><br>
@@ -400,11 +479,15 @@
         <footer>
             <p>Dados coletados de fontes públicas: CETESB, e-Ambiente, Receita Federal.</p>
             <p>Informações de fontes públicas. Não constituem garantia de oportunidade ou resultado.</p>
-            <p>&copy; 2026 Pulsedge &bull; Vinícius Pereira Barbosa &bull; MEI</p>
+            <p>&copy; <span id="footer-year"></span> Pulsedge &mdash; operado por Vinícius Pereira Barbosa &bull;
+                65.606.332/0001-60 &bull; Piracicaba, SP, Brasil</p>
             <p>Dúvidas? <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a></p>
         </footer>
 
     </div>
+    <script>
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
