@@ -10,7 +10,8 @@
         content="Termos de Serviço da Pulsedge — condições de uso do serviço de inteligência de mercado ambiental." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap"
         rel="stylesheet" />
     <style>
         *,
@@ -523,7 +524,8 @@
                     <li><strong>Pulse Diário:</strong> Atualizações diárias de terça a sábado às 7h (horário de
                         Brasília) com movimentações do dia anterior, mais o relatório semanal completo às segundas.</li>
                     <li>O assinante pode solicitar, sem custo, a troca entre o Pulse Semanal e o Pulse Diário a
-                        qualquer momento, por meio do <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
+                        qualquer momento, por meio do <a
+                            href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
                         A troca passa a valer a partir do próximo ciclo de cobrança.</li>
                 </ul>
 
@@ -545,10 +547,12 @@
                         data gera um saldo de dias de ciclo (a mais ou a menos, conforme o sentido da alteração),
                         que não é cobrado nem reembolsado de forma isolada. Esse saldo é apurado e aplicado
                         exclusivamente no último ciclo de cobrança, em caso de cancelamento da assinatura, podendo
-                        resultar em um último ciclo de duração diferente de 30 (trinta) dias.</li>
+                        resultar em um último ciclo de duração diferente de 30 (trinta) dias.
+                    </li>
                     <li><strong>Alteração da forma de pagamento:</strong> o assinante pode solicitar, sem custo,
                         a alteração do método de pagamento (cartão, PIX ou boleto) por meio do
-                        <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.</li>
+                        <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
+                    </li>
                 </ul>
 
                 <h2>4. Do Cancelamento e Reembolso</h2>
@@ -761,41 +765,41 @@
             menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
 
-        const toc = document.getElementById('toc');
-        const headings = document.querySelectorAll('main h2');
-        headings.forEach((heading, index) => {
-            heading.id = 'section-' + index;
-            const link = document.createElement('a');
-            link.href = '#' + heading.id;
-            link.className = 'toc-link';
-            link.setAttribute('aria-label', heading.textContent);
+        // const toc = document.getElementById('toc');
+        // const headings = document.querySelectorAll('main h2');
+        // headings.forEach((heading, index) => {
+        //     heading.id = 'section-' + index;
+        //     const link = document.createElement('a');
+        //     link.href = '#' + heading.id;
+        //     link.className = 'toc-link';
+        //     link.setAttribute('aria-label', heading.textContent);
 
-            const tick = document.createElement('span');
-            tick.className = 'toc-tick';
-            const text = document.createElement('span');
-            text.className = 'toc-text';
-            text.textContent = heading.textContent;
+        //     const tick = document.createElement('span');
+        //     tick.className = 'toc-tick';
+        //     const text = document.createElement('span');
+        //     text.className = 'toc-text';
+        //     text.textContent = heading.textContent;
 
-            link.appendChild(tick);
-            link.appendChild(text);
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-            toc.appendChild(link);
-        });
+        //     link.appendChild(tick);
+        //     link.appendChild(text);
+        //     link.addEventListener('click', (event) => {
+        //         event.preventDefault();
+        //         heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        //     });
+        //     toc.appendChild(link);
+        // });
 
-        const tocObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const link = toc.querySelector(`a[href="#${entry.target.id}"]`);
-                if (!link) return;
-                if (entry.isIntersecting) {
-                    toc.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
-            });
-        }, { rootMargin: '-20% 0px -70% 0px' });
-        headings.forEach((heading) => tocObserver.observe(heading));
+        // const tocObserver = new IntersectionObserver((entries) => {
+        //     entries.forEach((entry) => {
+        //         const link = toc.querySelector(`a[href="#${entry.target.id}"]`);
+        //         if (!link) return;
+        //         if (entry.isIntersecting) {
+        //             toc.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('active'));
+        //             link.classList.add('active');
+        //         }
+        //     });
+        // }, { rootMargin: '-20% 0px -70% 0px' });
+        // headings.forEach((heading) => tocObserver.observe(heading));
     </script>
 </body>
 
