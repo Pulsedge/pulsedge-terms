@@ -358,6 +358,90 @@
             background: #26396a;
         }
 
+        /* Table of contents flutuante — minimapa estilo Notion: riscos por padrão, expande no hover */
+        .toc {
+            position: fixed;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+            max-height: 70vh;
+            z-index: 50;
+        }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            height: 14px;
+            text-decoration: none;
+        }
+
+        .toc-tick {
+            width: 14px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--border);
+            flex-shrink: 0;
+            transition: width 0.2s, background 0.2s;
+        }
+
+        .toc-text {
+            font-size: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-width 0.2s ease, opacity 0.15s ease;
+        }
+
+        .toc:hover .toc-text {
+            max-width: 240px;
+            opacity: 1;
+        }
+
+        .toc-link:hover .toc-text {
+            color: var(--navy);
+        }
+
+        .toc-link.active .toc-tick {
+            width: 20px;
+            background: var(--accent);
+        }
+
+        .toc-link.active .toc-text {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .toc {
+                right: 6px;
+                gap: 3px;
+            }
+
+            .toc-link {
+                height: 10px;
+            }
+
+            .toc-tick {
+                width: 9px;
+            }
+
+            .toc-link.active .toc-tick {
+                width: 14px;
+            }
+
+            .toc-text {
+                font-size: 11px;
+            }
+        }
+
         @media (max-width: 600px) {
             header {
                 height: 72px;
@@ -436,17 +520,17 @@
         <main>
             <div class="container">
 
-                <p class="doc-label">Política de Privacidade</p>
+                <p class="doc-label">Documento Legal</p>
                 <h1>Política de Privacidade</h1>
-                <p class="updated">Última atualização: 28 de junho de 2026</p>
+                <p class="updated">Última atualização: 29 de junho de 2026</p>
 
-                <p><strong>A Pulsedge respeita sua privacidade.</strong> Esta política explica como coletamos,
+                <p><strong>Valorizamos e respeitamos sua privacidade.</strong> Esta política explica como coletamos,
                     usamos e protegemos seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados
                     (LGPD — Lei 13.709/2018).</p>
 
                 <p>Controlador dos dados: <strong>Vinícius Pereira Barbosa — MEI</strong>, CNPJ 65.606.332/0001-60,
                     operador do serviço Pulsedge, com sede em Piracicaba, SP. Contato:
-                    <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
+                    <a href="mailto:juridico@pulsedge.com.br">juridico@pulsedge.com.br</a>.
                 </p>
 
                 <h2>1. Dados dos Assinantes que Coletamos</h2>
@@ -491,6 +575,14 @@
                     </table>
                 </div>
 
+                <div class="highlight">
+                    <p><strong>A Pulsedge não armazena dados de cartão de crédito.</strong> O processamento de
+                        pagamentos é feito diretamente pelo Asaas, gateway de pagamentos responsável pela
+                        coleta, processamento e armazenamento dos dados financeiros (número de cartão, dados
+                        bancários e de boleto/PIX). A Pulsedge recebe apenas a confirmação do status de cada
+                        cobrança.</p>
+                </div>
+
                 <h2>2. Dados de Terceiros que Processamos</h2>
                 <p>O serviço Pulsedge coleta e processa dados de empresas e seus responsáveis a partir de fontes
                     públicas, para fins de inteligência de mercado entregue aos assinantes. As fontes utilizadas são:
@@ -500,6 +592,8 @@
                     <li><strong>Plataforma e-Ambiente</strong> — Governo do Estado de São Paulo.</li>
                     <li><strong>Receita Federal do Brasil</strong> — dados cadastrais públicos de CNPJ via APIs
                         BrasilAPI e OpenCNPJ.</li>
+                    <li><strong>Econodata</strong> — plataforma de enriquecimento de dados cadastrais públicos de
+                        empresas.</li>
                 </ul>
 
                 <div class="highlight">
@@ -533,19 +627,20 @@
 
                 <h2>5. Armazenamento e Segurança</h2>
                 <ul>
-                    <li><strong>Processamento:</strong> Google Cloud VPS, infraestrutura em nuvem.</li>
-                    <li><strong>Banco de dados e arquivos:</strong> Supabase (banco de dados relacional e
-                        armazenamento de planilhas).</li>
-                    <li><strong>Site estático:</strong> Vercel.</li>
+                    <li><strong>Processamento:</strong> infraestrutura de nuvem.</li>
+                    <li><strong>Banco de dados e arquivos:</strong> banco de dados relacional e armazenamento de
+                        planilhas em nuvem.</li>
                     <li><strong>Criptografia:</strong> dados em trânsito protegidos por HTTPS/TLS.</li>
                     <li><strong>Acesso:</strong> restrito ao operador do serviço (Vinícius Pereira Barbosa).</li>
-                    <li><strong>Backup:</strong> cópias de segurança realizadas periodicamente pelo Supabase.</li>
-                    <li><strong>Monitoramento:</strong> erros e incidentes monitorados via Sentry.</li>
-                    <li><strong>Transferência internacional:</strong> alguns dos prestadores acima (ex.: Google
-                        Workspace, Sentry) podem processar ou armazenar dados em servidores localizados fora do
-                        Brasil. Esse tratamento é realizado com base no legítimo interesse e na execução do
-                        contrato (Art. 7º, V e IX da LGPD), e os prestadores envolvidos adotam padrões
-                        internacionais de proteção de dados e segurança da informação.</li>
+                    <li><strong>Backup:</strong> cópias de segurança realizadas periodicamente em nuvem.</li>
+                    <li><strong>Monitoramento:</strong> erros e incidentes monitorados por ferramenta dedicada de
+                        observabilidade.</li>
+                    <li><strong>Transferência internacional:</strong> alguns dos prestadores de infraestrutura,
+                        e-mail (Google Workspace) e monitoramento utilizados pela Pulsedge podem processar ou
+                        armazenar dados em servidores localizados fora do Brasil. Esse tratamento é realizado com
+                        base no legítimo interesse e na execução do contrato (Art. 7º, V e IX da LGPD), e os
+                        prestadores envolvidos adotam padrões internacionais de proteção de dados e segurança da
+                        informação.</li>
                 </ul>
 
                 <div class="highlight">
@@ -586,9 +681,8 @@
                         LGPD.</li>
                 </ul>
                 <p><strong>Para exercer seus direitos, entre em contato:</strong><br>
-                    E-mail: <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a><br>
-                    Assunto sugerido: "LGPD — Direitos do Titular"<br>
-                    Prazo de resposta: até 15 dias úteis.</p>
+                    E-mail: <a href="mailto:juridico@pulsedge.com.br">juridico@pulsedge.com.br</a><br>
+                    Assunto sugerido: "LGPD — Direitos do Titular"</p>
 
                 <p>Este canal também está disponível a <strong>titulares de dados de terceiros</strong> presentes
                     nas planilhas (empresas ou seus responsáveis cujos dados procedam de fontes públicas) que
@@ -603,7 +697,7 @@
                 <h2>9. Encarregado de Dados (DPO)</h2>
                 <p>Nos termos do art. 41 da LGPD, o encarregado de dados (DPO) da Pulsedge é:</p>
                 <p><strong>Vinícius Pereira Barbosa</strong><br>
-                    E-mail: <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a></p>
+                    E-mail: <a href="mailto:juridico@pulsedge.com.br">juridico@pulsedge.com.br</a></p>
 
                 <h2>10. Alterações nesta Política</h2>
                 <p>Esta Política de Privacidade pode ser atualizada periodicamente. Mudanças significativas serão
@@ -650,6 +744,8 @@
             </svg>
         </button>
 
+        <nav class="toc" id="toc" aria-label="Sumário do documento"></nav>
+
     </div>
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -666,6 +762,42 @@
             const isOpen = headerNav.classList.toggle('open');
             menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
+
+        const toc = document.getElementById('toc');
+        const headings = document.querySelectorAll('main h2');
+        headings.forEach((heading, index) => {
+            heading.id = 'section-' + index;
+            const link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.className = 'toc-link';
+            link.setAttribute('aria-label', heading.textContent);
+
+            const tick = document.createElement('span');
+            tick.className = 'toc-tick';
+            const text = document.createElement('span');
+            text.className = 'toc-text';
+            text.textContent = heading.textContent;
+
+            link.appendChild(tick);
+            link.appendChild(text);
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            toc.appendChild(link);
+        });
+
+        const tocObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const link = toc.querySelector(`a[href="#${entry.target.id}"]`);
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    toc.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        headings.forEach((heading) => tocObserver.observe(heading));
     </script>
 </body>
 

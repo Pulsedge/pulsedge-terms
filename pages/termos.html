@@ -321,6 +321,90 @@
             background: #26396a;
         }
 
+        /* Table of contents flutuante — minimapa estilo Notion: riscos por padrão, expande no hover */
+        .toc {
+            position: fixed;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+            max-height: 70vh;
+            z-index: 50;
+        }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            height: 14px;
+            text-decoration: none;
+        }
+
+        .toc-tick {
+            width: 14px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--border);
+            flex-shrink: 0;
+            transition: width 0.2s, background 0.2s;
+        }
+
+        .toc-text {
+            font-size: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-width 0.2s ease, opacity 0.15s ease;
+        }
+
+        .toc:hover .toc-text {
+            max-width: 240px;
+            opacity: 1;
+        }
+
+        .toc-link:hover .toc-text {
+            color: var(--navy);
+        }
+
+        .toc-link.active .toc-tick {
+            width: 20px;
+            background: var(--accent);
+        }
+
+        .toc-link.active .toc-text {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .toc {
+                right: 6px;
+                gap: 3px;
+            }
+
+            .toc-link {
+                height: 10px;
+            }
+
+            .toc-tick {
+                width: 9px;
+            }
+
+            .toc-link.active .toc-tick {
+                width: 14px;
+            }
+
+            .toc-text {
+                font-size: 11px;
+            }
+        }
+
         @media (max-width: 600px) {
             header {
                 height: 72px;
@@ -399,18 +483,21 @@
         <main>
             <div class="container">
 
-                <p class="doc-label">Termos de Serviço</p>
+                <p class="doc-label">Documento Legal</p>
                 <h1>Termos de Serviço</h1>
-                <p class="updated">Última atualização: 28 de junho de 2026</p>
+                <p class="updated">Última atualização: 29 de junho de 2026</p>
 
                 <h2>1. Do Serviço e Partes</h2>
                 <p>A Pulsedge é um serviço de monitoramento automatizado de licenças ambientais do Estado de São Paulo,
-                    operado por <strong>Vinícius Pereira Barbosa — MEI</strong>, CNPJ 65.606.332/0001-60, com e-mail
-                    <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
+                    operado por <strong>Vinícius Pereira Barbosa — MEI</strong>, CNPJ 65.606.332/0001-60. Para suporte
+                    operacional, utilize <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>; para
+                    dúvidas sobre estes Termos de Serviço ou a Política de Privacidade, utilize
+                    <a href="mailto:juridico@pulsedge.com.br">juridico@pulsedge.com.br</a>.
                 </p>
                 <p>O serviço coleta dados públicos disponibilizados pela CETESB e pela plataforma e-Ambiente,
                     enriquecidos
-                    com informações da Receita Federal do Brasil, e os entrega aos assinantes por e-mail em formato
+                    com informações da Receita Federal do Brasil e de plataformas de enriquecimento de dados
+                    cadastrais públicos de empresas, e os entrega aos assinantes por e-mail em formato
                     de planilha Excel.</p>
 
                 <div class="highlight">
@@ -435,16 +522,33 @@
                         de Brasília) com mudanças da semana anterior.</li>
                     <li><strong>Pulse Diário:</strong> Atualizações diárias de terça a sábado às 7h (horário de
                         Brasília) com movimentações do dia anterior, mais o relatório semanal completo às segundas.</li>
+                    <li>O assinante pode solicitar, sem custo, a troca entre o Pulse Semanal e o Pulse Diário a
+                        qualquer momento, por meio do <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.
+                        A troca passa a valer a partir do próximo ciclo de cobrança.</li>
                 </ul>
 
                 <h2>3. Do Pagamento</h2>
                 <ul>
                     <li>Cobrança mensal antecipada via boleto, PIX ou cartão de crédito, processada pelo gateway
-                        Asaas.</li>
+                        Asaas. A Pulsedge não armazena dados de cartão de crédito — esse processamento é de
+                        responsabilidade exclusiva do Asaas.</li>
                     <li>Renovação automática ao final de cada período, salvo cancelamento prévio.</li>
                     <li>Valores podem ser reajustados com aviso prévio de 30 (trinta) dias por e-mail.</li>
                     <li>Toda cobrança mensal é acompanhada da emissão de nota fiscal de serviço (NFS-e) do
                         CNPJ da Pulsedge para o CNPJ do assinante.</li>
+                    <li><strong>Data de início da assinatura:</strong> a data de início do ciclo de cobrança é
+                        sempre a data em que o primeiro pagamento é confirmado, e a cobrança mensal se repete
+                        nessa mesma data nos ciclos seguintes.</li>
+                    <li><strong>Alteração da data de vencimento:</strong> o assinante pode solicitar, sem custo,
+                        a alteração da data de vencimento mensal por meio do
+                        <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>. Cada alteração de
+                        data gera um saldo de dias de ciclo (a mais ou a menos, conforme o sentido da alteração),
+                        que não é cobrado nem reembolsado de forma isolada. Esse saldo é apurado e aplicado
+                        exclusivamente no último ciclo de cobrança, em caso de cancelamento da assinatura, podendo
+                        resultar em um último ciclo de duração diferente de 30 (trinta) dias.</li>
+                    <li><strong>Alteração da forma de pagamento:</strong> o assinante pode solicitar, sem custo,
+                        a alteração do método de pagamento (cartão, PIX ou boleto) por meio do
+                        <a href="mailto:suporte@pulsedge.com.br">suporte@pulsedge.com.br</a>.</li>
                 </ul>
 
                 <h2>4. Do Cancelamento e Reembolso</h2>
@@ -461,10 +565,14 @@
                         restantes no período pago.</li>
                     <li><strong>Tolerância por instabilidade técnica:</strong> em caso de instabilidade ou
                         indisponibilidade das fontes de dados (CETESB, e-Ambiente) que impeça a entrega das
-                        planilhas, a Pulsedge terá um prazo de até 7 (sete) dias corridos para normalizar a
-                        entrega antes que qualquer reembolso seja devido. Somente a partir do 8º dia consecutivo
-                        sem entrega é que o período correspondente passa a gerar direito a reembolso
-                        proporcional.</li>
+                        planilhas, a Pulsedge terá um prazo de até 14 (catorze) dias corridos para normalizar a
+                        entrega antes que qualquer reembolso seja devido. Essa tolerância é a mesma para os planos
+                        Pulse Semanal e Pulse Diário, independentemente da quantidade de entregas previstas em
+                        cada plano. Somente a partir do 15º dia consecutivo sem entrega é que o período
+                        correspondente passa a gerar direito a reembolso proporcional. Essa tolerância não
+                        restringe, em nenhuma hipótese, o direito do assinante de cancelar a assinatura a
+                        qualquer momento durante esse período, sem multa ou taxa, conforme o primeiro item desta
+                        Seção.</li>
                     <li><strong>Cancelamento por iniciativa da Pulsedge:</strong> Em caso de descontinuação do
                         serviço por impossibilidade técnica permanente (ex.: indisponibilidade definitiva das
                         fontes de dados, além do prazo de tolerância acima), será realizado reembolso
@@ -473,7 +581,8 @@
                     <li><strong>Inadimplência:</strong> em caso de atraso no pagamento, o assinante terá um prazo
                         de tolerância de 30 (trinta) dias corridos para regularizar o pagamento, sem incidência de
                         multa. Encerrado esse prazo sem a regularização, a assinatura será automaticamente
-                        cancelada e a prestação do serviço será interrompida.</li>
+                        cancelada, a prestação do serviço será interrompida, e a nota fiscal de serviço (NFS-e)
+                        eventualmente emitida para o ciclo não pago será cancelada.</li>
                     <li><strong>Cancelamento por violação dos Termos:</strong> a Pulsedge pode suspender ou
                         cancelar o acesso do assinante, a qualquer momento e sem aviso prévio, em caso de violação
                         destes Termos de Serviço — incluindo, mas não se limitando a, compartilhamento não
@@ -633,6 +742,8 @@
             </svg>
         </button>
 
+        <nav class="toc" id="toc" aria-label="Sumário do documento"></nav>
+
     </div>
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -649,6 +760,42 @@
             const isOpen = headerNav.classList.toggle('open');
             menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
+
+        const toc = document.getElementById('toc');
+        const headings = document.querySelectorAll('main h2');
+        headings.forEach((heading, index) => {
+            heading.id = 'section-' + index;
+            const link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.className = 'toc-link';
+            link.setAttribute('aria-label', heading.textContent);
+
+            const tick = document.createElement('span');
+            tick.className = 'toc-tick';
+            const text = document.createElement('span');
+            text.className = 'toc-text';
+            text.textContent = heading.textContent;
+
+            link.appendChild(tick);
+            link.appendChild(text);
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            toc.appendChild(link);
+        });
+
+        const tocObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const link = toc.querySelector(`a[href="#${entry.target.id}"]`);
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    toc.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        headings.forEach((heading) => tocObserver.observe(heading));
     </script>
 </body>
 

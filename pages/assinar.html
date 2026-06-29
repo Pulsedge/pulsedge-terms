@@ -414,7 +414,7 @@
         }
 
         .sheet-table td:hover {
-            outline: 1.5px solid var(--accent);
+            outline: 1.5px solid #1d1d1d;
             outline-offset: -1.5px;
             z-index: 1;
         }
@@ -1370,6 +1370,10 @@
         @media (max-width: 600px) {
             .trust-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .source-label {
+                width: 100%;
             }
         }
 
@@ -2763,14 +2767,24 @@
 
             const stickyCta = document.getElementById('sticky-cta');
             const ctaClickZone = document.getElementById('cta-click-zone');
+            const plansHeading = document.getElementById('plans-heading');
+            const isMobile = () => window.matchMedia('(max-width: 600px)').matches;
             window.addEventListener('scroll', () => {
                 if (!ctaClickZone || !document.getElementById('state-checkout').classList.contains('active')) {
                     stickyCta.classList.remove('visible');
                     return;
                 }
-                // Only show once the main CTA button has scrolled past the top of the viewport.
-                const pastMainCta = ctaClickZone.getBoundingClientRect().bottom < 0;
-                stickyCta.classList.toggle('visible', pastMainCta);
+                const ctaRect = ctaClickZone.getBoundingClientRect();
+                // Hide while the real CTA button is on screen; reappear once it's scrolled past.
+                const buttonOnScreen = ctaRect.bottom > 0 && ctaRect.top < window.innerHeight;
+                let shouldShow = ctaRect.bottom < 0;
+                if (isMobile() && plansHeading) {
+                    // On mobile, start showing as soon as the header reaches the "Planos disponíveis" heading.
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const reachedPlans = plansHeading.getBoundingClientRect().top <= headerHeight;
+                    shouldShow = reachedPlans && !buttonOnScreen;
+                }
+                stickyCta.classList.toggle('visible', shouldShow);
             }, { passive: true });
         });
 

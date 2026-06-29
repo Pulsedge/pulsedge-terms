@@ -5,7 +5,8 @@
       "name": "static-server",
       "runtimeExecutable": "node",
       "runtimeArgs": ["tests/static-server.js"],
-      "port": 4173
+      "port": 4173,
+      "autoPort": true
     }
   ]
 }
