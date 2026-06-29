@@ -26,13 +26,19 @@
             --bg: #f5f5f7;
             --surface: #ffffff;
             --navy: #1a2b4a;
+            --navy-deep: #111c32;
             --accent: #1462f5;
+            --accent-hover: #0d50d4;
             --accent-soft: rgba(20, 98, 245, 0.07);
             --accent-ring: rgba(20, 98, 245, 0.25);
             --muted: #6b7280;
+            --muted-light: #9aa3b0;
             --border: #e5e7eb;
+            --border-strong: #cdd2db;
             --text: #1a2b4a;
             --radius: 14px;
+            --radius-sm: 8px;
+            --serif: 'Lora', Georgia, serif;
         }
 
         html,
@@ -61,7 +67,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            padding-top: 88px;
         }
 
         header {
@@ -69,7 +74,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: var(--navy);
+            background: rgba(26, 43, 74, 0);
             padding: 0 32px;
             height: 88px;
             display: flex;
@@ -100,10 +105,6 @@
             background: var(--bg);
         }
 
-        .cko-section:first-child {
-            padding-top: 48px;
-        }
-
         .cko-section:last-child {
             padding-bottom: 56px;
         }
@@ -111,7 +112,7 @@
         .state-msg-wrap {
             max-width: 860px;
             margin: 0 auto;
-            padding: 56px 16px 72px;
+            padding: 144px 16px 72px;
         }
 
         footer {
@@ -259,15 +260,6 @@
         }
 
         /* Checkout */
-        #state-checkout .section-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 14px;
-        }
-
         .section-heading {
             font-size: 13px;
             font-weight: 600;
@@ -275,21 +267,6 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             margin: 0 0 16px;
-        }
-
-        #state-checkout h1 {
-            font-family: 'Lora', Georgia, serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--navy);
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-
-        #state-checkout .subtitle {
-            font-size: 15px;
-            color: var(--muted);
-            margin-bottom: 20px;
         }
 
         .lead-text {
@@ -303,7 +280,8 @@
         .intro-proof {
             display: flex;
             align-items: center;
-            gap: 24px;
+            justify-content: center;
+            gap: 36px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -314,7 +292,6 @@
         .intro-stats {
             display: flex;
             gap: 28px;
-            flex: 1;
         }
 
         .intro-stat strong {
@@ -504,22 +481,23 @@
             gap: 6px;
         }
 
-        .sheet-legend .dot {
+        .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             display: inline-block;
+            flex-shrink: 0;
         }
 
-        .sheet-legend .dot.group-a {
+        .dot.group-a {
             background: var(--accent);
         }
 
-        .sheet-legend .dot.group-b {
+        .dot.group-b {
             background: var(--navy);
         }
 
-        .sheet-legend .dot.group-c {
+        .dot.group-c {
             background: #d99a2b;
         }
 
@@ -548,50 +526,6 @@
             color: var(--muted);
             text-align: center;
             padding: 10px 16px 14px;
-        }
-
-        .mini-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 0 0 32px;
-        }
-
-        .mini-step {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .mini-step-num {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .mini-step strong {
-            display: block;
-            font-size: 13px;
-            color: var(--navy);
-            margin-bottom: 2px;
-        }
-
-        .mini-step span {
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.5;
         }
 
         .plans {
@@ -821,45 +755,6 @@
             box-shadow: 0 3px 8px rgba(20, 98, 245, 0.35);
         }
 
-        .schedule-legend {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .schedule-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--muted);
-            transition: opacity 0.2s;
-        }
-
-        .schedule-legend-item strong {
-            color: var(--navy);
-        }
-
-        .schedule-legend .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .schedule-legend .dot.monday {
-            background: var(--navy);
-        }
-
-        .schedule-legend .dot.daily {
-            background: var(--accent);
-        }
-
-        .schedule-legend-item.is-hidden {
-            display: none;
-        }
-
         .schedule-note {
             font-size: 11px;
             color: var(--muted);
@@ -878,6 +773,37 @@
             border-radius: var(--radius);
             padding: 16px 20px;
             margin-bottom: 20px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        @keyframes consent-shake {
+
+            10%,
+            90% {
+                transform: translateX(-1px);
+            }
+
+            20%,
+            80% {
+                transform: translateX(2px);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translateX(-4px);
+            }
+
+            40%,
+            60% {
+                transform: translateX(4px);
+            }
+        }
+
+        .consent-wrap.consent-alert {
+            animation: consent-shake 0.5s;
+            background: #fef2f2;
+            border-color: #ef4444;
         }
 
         .consent-label {
@@ -942,6 +868,11 @@
         .btn-cta:disabled {
             opacity: 0.35;
             cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .cta-click-zone {
+            cursor: default;
         }
 
         .btn-cta:not(:disabled):hover {
@@ -971,6 +902,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 22px 24px;
+            box-shadow: 0 8px 24px -12px rgba(26, 43, 74, 0.18);
         }
 
         .founder-avatar {
@@ -980,11 +912,13 @@
             object-fit: cover;
             flex-shrink: 0;
             cursor: pointer;
-            transition: opacity 0.15s;
+            transition: opacity 0.15s, transform 0.15s;
+            border: 2px solid var(--border);
         }
 
         .founder-avatar:hover {
             opacity: 0.85;
+            transform: scale(1.03);
         }
 
         .founder-card strong {
@@ -1033,10 +967,6 @@
         }
 
         /* FAQ */
-        .faq {
-            margin-top: 32px;
-        }
-
         .faq-title {
             font-size: 13px;
             font-weight: 600;
@@ -1216,6 +1146,535 @@
             color: var(--accent);
             text-decoration: none;
         }
+
+        /* ── HERO ── */
+        .hero-wrap {
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        .hero-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 0%, rgba(20, 98, 245, 0.3), transparent 55%);
+            pointer-events: none;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 136px 24px 56px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #93b4fb;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.4px;
+            line-height: 1.28;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: #93b4fb;
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.66);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 112px 20px 44px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+
+        /* ── PROOF BANNER ── */
+        .proof-section {
+            padding-top: 56px;
+        }
+
+        .proof-banner-wrap {
+            position: relative;
+            border-radius: calc(var(--radius) + 3px);
+            padding: 3px;
+            overflow: hidden;
+        }
+
+        .proof-banner-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -75%;
+            background: conic-gradient(from 0deg,
+                    transparent 0deg,
+                    transparent 265deg,
+                    var(--accent) 295deg,
+                    #9fc1ff 310deg,
+                    transparent 335deg,
+                    transparent 360deg);
+            animation: proof-glow-spin 5.5s linear infinite;
+        }
+
+        @keyframes proof-glow-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .proof-banner-wrap .intro-proof {
+            position: relative;
+            margin: 0;
+            border-radius: var(--radius);
+            box-shadow: 0 12px 32px -16px rgba(26, 43, 74, 0.2);
+        }
+
+        /* ── TRUST STRIP ── */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px -12px rgba(26, 43, 74, 0.18);
+        }
+
+        .trust-item {
+            background: var(--surface);
+            padding: 22px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .trust-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .trust-icon svg {
+            color: var(--accent);
+        }
+
+        .trust-item strong {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.35;
+        }
+
+        .trust-item span {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .source-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .source-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted-light);
+        }
+
+        .source-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            color: var(--navy);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 5px 11px;
+        }
+
+        .source-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--navy);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .trust-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── DELIVERY RECAP ── */
+        .delivery-recap {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .delivery-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 7px 14px;
+        }
+
+        /* ── COMO FUNCIONA ── */
+        .cko-section.dark {
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cko-section.dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        .cko-section.dark .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cko-section.dark .section-heading {
+            color: #93b4fb;
+        }
+
+        .cko-section.dark .lead-text {
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .section-heading-lg {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .cko-section.dark .section-heading-lg {
+            color: #ffffff;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .process-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+        }
+
+        .cko-section.dark .process-step {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .process-step-num {
+            font-family: var(--serif);
+            font-size: 36px;
+            font-weight: 700;
+            color: rgba(20, 98, 245, 0.3);
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+
+        .cko-section.dark .process-step-num {
+            color: #93b4fb;
+        }
+
+        .process-step strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .cko-section.dark .process-step strong {
+            color: #ffffff;
+        }
+
+        .process-step span {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .cko-section.dark .process-step span {
+            color: rgba(255, 255, 255, 0.58);
+        }
+
+        @media (max-width: 700px) {
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── PLAN ADVANTAGE CALLOUT ── */
+        .plan-advantage {
+            margin-top: 16px;
+            padding: 10px 14px;
+            background: rgba(20, 98, 245, 0.06);
+            border: 1px solid rgba(20, 98, 245, 0.2);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--navy);
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .plan-advantage svg {
+            flex-shrink: 0;
+            margin-top: 1px;
+            color: var(--accent);
+        }
+
+        /* ── SCHEDULE TIMELINE + COMPARE ── */
+        .schedule-timeline {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .schedule-track {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .schedule-days {
+            position: relative;
+            z-index: 1;
+        }
+
+        .schedule-compare {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .schedule-compare-item {
+            flex: 1;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: background 0.2s;
+        }
+
+        .schedule-compare-item.is-active {
+            background: var(--accent-soft);
+        }
+
+        .schedule-compare-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted-light);
+        }
+
+        .schedule-compare-item.is-active .schedule-compare-label {
+            color: var(--accent);
+        }
+
+        .schedule-compare-item strong {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .schedule-compare-tag {
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .schedule-compare-divider {
+            width: 1px;
+            background: var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .schedule-compare {
+                flex-direction: column;
+            }
+
+            .schedule-compare-divider {
+                width: 100%;
+                height: 1px;
+            }
+        }
+
+        /* ── STICKY CTA ── */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--navy);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            z-index: 90;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+
+        .sticky-cta-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sticky-cta-plan {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .sticky-cta-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.3px;
+        }
+
+        .sticky-cta-price span {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-cta-sticky {
+            padding: 12px 28px;
+            background: var(--accent);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s, opacity 0.15s;
+            flex-shrink: 0;
+        }
+
+        .btn-cta-sticky:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-cta-sticky.is-disabled {
+            opacity: 0.5;
+        }
+
+        @media (max-width: 600px) {
+            .sticky-cta {
+                padding: 10px 16px;
+            }
+
+            .sticky-cta-price {
+                font-size: 16px;
+            }
+        }
     </style>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -1237,52 +1696,140 @@
         <main>
             <!-- Estado 2: Checkout valido -->
             <div id="state-checkout" class="state">
-                <section class="cko-section">
-                    <div class="container">
-                        <p class="section-label">Assinatura Pulsedge</p>
-                        <h1>Escolha seu plano</h1>
-                        <p class="subtitle">Decida o plano ideal para a sua empresa encontrar mais oportunidades de
-                            negócio. Uma vez escolhido, as movimentações de licenciamento ambiental passam a chegar
-                            direto no seu e-mail, no ritmo da sua assinatura.</p>
 
-                        <div class="intro-proof">
-                            <div class="intro-stats">
-                                <div class="intro-stat">
-                                    <strong id="mini-stat-companies">&mdash;</strong>
-                                    <span>Empresas acompanhadas</span>
+                <!-- Hero -->
+                <div class="hero-wrap">
+                    <section class="hero">
+                        <p class="hero-eyebrow">Inteligência de Mercado — Chegue primeiro. Sempre</p>
+                        <h1>Cada movimentação da CETESB, <em>traduzida em oportunidade comercial.</em></h1>
+                        <p class="hero-sub">A Pulsedge monitora diariamente o portal da CETESB e entrega por e-mail
+                            uma planilha com cada nova movimentação de licenciamento ambiental no Estado de São Paulo
+                            &mdash; com CNPJ, contatos e endereço prontos para abordagem.</p>
+                    </section>
+                </div>
+
+                <section class="cko-section proof-section">
+                    <div class="container">
+                        <div class="proof-banner-wrap">
+                            <div class="intro-proof">
+                                <div class="intro-stats">
+                                    <div class="intro-stat">
+                                        <strong id="mini-stat-companies">&mdash;</strong>
+                                        <span>Empresas acompanhadas</span>
+                                    </div>
+                                    <div class="intro-stat">
+                                        <strong id="mini-stat-cities">&mdash;</strong>
+                                        <span>Municípios monitorados</span>
+                                    </div>
                                 </div>
-                                <div class="intro-stat">
-                                    <strong id="mini-stat-cities">&mdash;</strong>
-                                    <span>Municípios cobertos</span>
+                                <div class="intro-divider"></div>
+                                <div class="intro-map">
+                                    <svg viewBox="0 50 380 240" xmlns="http://www.w3.org/2000/svg"
+                                        aria-label="Mapa estilizado do Estado de São Paulo">
+                                        <defs>
+                                            <linearGradient id="intro-map-outline" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#1a2b4a" />
+                                                <stop offset="100%" stop-color="#1462f5" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path
+                                            d="M291.6,222.7 L258.9,239.9 L211.8,281.8 L214.9,278.5 L205.6,268.3 L192.1,271.2 L192.2,255.8 L162.7,255.8 L167.0,242.5 L150.3,222.4 L147.6,194.5 L135.0,183.6 L104.3,186.2 L83.0,174.3 L48.7,168.1 L44.0,174.5 L8.0,171.4 L36.5,152.8 L58.5,120.7 L58.1,111.9 L68.6,103.6 L69.9,91.5 L111.0,58.2 L164.4,64.1 L165.4,77.4 L175.5,72.4 L179.3,83.6 L182.4,72.3 L237.3,64.1 L247.1,74.6 L244.7,84.0 L252.6,92.5 L246.8,101.7 L256.1,123.6 L276.5,125.5 L267.8,159.5 L280.7,169.1 L282.6,183.5 L305.7,182.0 L308.7,170.6 L321.6,173.6 L345.7,163.6 L352.8,171.9 L372.0,174.5 L346.4,187.0 L342.4,196.9 L349.1,202.7 L321.4,213.1 L321.4,221.1 L291.6,222.7 Z"
+                                            fill="rgba(20, 98, 245, 0.05)" stroke="url(#intro-map-outline)"
+                                            stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+                                    </svg>
+                                    <span class="intro-map-badge">Cobertura atual: Estado de São Paulo</span>
                                 </div>
-                            </div>
-                            <div class="intro-divider"></div>
-                            <div class="intro-map">
-                                <svg viewBox="0 50 380 240" xmlns="http://www.w3.org/2000/svg"
-                                    aria-label="Mapa estilizado do Estado de São Paulo">
-                                    <defs>
-                                        <linearGradient id="intro-map-outline" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#1a2b4a" />
-                                            <stop offset="100%" stop-color="#1462f5" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path
-                                        d="M291.6,222.7 L258.9,239.9 L211.8,281.8 L214.9,278.5 L205.6,268.3 L192.1,271.2 L192.2,255.8 L162.7,255.8 L167.0,242.5 L150.3,222.4 L147.6,194.5 L135.0,183.6 L104.3,186.2 L83.0,174.3 L48.7,168.1 L44.0,174.5 L8.0,171.4 L36.5,152.8 L58.5,120.7 L58.1,111.9 L68.6,103.6 L69.9,91.5 L111.0,58.2 L164.4,64.1 L165.4,77.4 L175.5,72.4 L179.3,83.6 L182.4,72.3 L237.3,64.1 L247.1,74.6 L244.7,84.0 L252.6,92.5 L246.8,101.7 L256.1,123.6 L276.5,125.5 L267.8,159.5 L280.7,169.1 L282.6,183.5 L305.7,182.0 L308.7,170.6 L321.6,173.6 L345.7,163.6 L352.8,171.9 L372.0,174.5 L346.4,187.0 L342.4,196.9 L349.1,202.7 L321.4,213.1 L321.4,221.1 L291.6,222.7 Z"
-                                        fill="rgba(20, 98, 245, 0.05)" stroke="url(#intro-map-outline)" stroke-width="4"
-                                        stroke-linejoin="round" stroke-linecap="round" />
-                                </svg>
-                                <span class="intro-map-badge">Cobertura atual: Estado de São Paulo</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="cko-section alt">
+                <!-- Por que confiar -->
+                <section class="cko-section alt" aria-labelledby="trust-heading">
+                    <div class="container">
+                        <p class="section-heading" id="trust-heading">Por que confiar</p>
+                        <h2 class="section-heading-lg">Zero risco, sem fidelidade</h2>
+                        <p class="lead-text">Tudo que você precisa saber antes de assinar &mdash; em linguagem direta.
+                        </p>
+                        <div class="trust-grid" role="list">
+                            <div class="trust-item" role="listitem">
+                                <div class="trust-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 6 6 18" />
+                                        <path d="m6 6 12 12" />
+                                    </svg>
+                                </div>
+                                <strong>Sem fidelidade</strong>
+                                <span>Cancele a qualquer momento por e-mail, sem multa nem justificativa.</span>
+                            </div>
+                            <div class="trust-item" role="listitem">
+                                <div class="trust-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                                        <path d="M16 2v4M8 2v4M3 10h18" />
+                                    </svg>
+                                </div>
+                                <strong>NFS-e automática</strong>
+                                <span>Nota fiscal de serviço emitida para o CNPJ da sua empresa a cada ciclo.</span>
+                            </div>
+                            <div class="trust-item" role="listitem">
+                                <div class="trust-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="M12 16v-4M12 8h.01" />
+                                    </svg>
+                                </div>
+                                <strong>Fontes 100% públicas</strong>
+                                <span>Dados abertos do portal CETESB e da Receita Federal. Auditável por qualquer equipe
+                                    jurídica.</span>
+                            </div>
+                            <div class="trust-item" role="listitem">
+                                <div class="trust-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </div>
+                                <strong>Pagamento seguro</strong>
+                                <span>Processado pelo Asaas. Cartão, PIX ou boleto. Seus dados de cartão nunca passam
+                                    pela Pulsedge.</span>
+                            </div>
+                        </div>
+                        <div class="source-row" aria-label="Fontes de dados">
+                            <span class="source-label">Fontes de dados:</span>
+                            <span class="source-badge">CETESB</span>
+                            <span class="source-badge">e-Ambiente</span>
+                            <span class="source-badge">Receita Federal</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cko-section">
                     <div class="container">
                         <p class="section-heading">Veja como sua planilha chega</p>
-                        <p class="lead-text">Cada linha é uma oportunidade pronta para abordagem: o processo, o status
-                            e os dados de contato da empresa e do empreendimento, tudo no mesmo lugar &mdash; sem
-                            trabalho de pesquisa.</p>
+                        <h2 class="section-heading-lg">Cada linha, uma oportunidade pronta para abordagem.</h2>
+                        <p class="lead-text">A CETESB publica novas solicitações e movimenta processos já abertos
+                            todos os dias no Estado de São Paulo. Acompanhar isso manualmente significa revisar um
+                            portal público diariamente &mdash; ou descobrir a movimentação semanas depois, por acaso.
+                        </p>
+                        <p class="lead-text">A Pulsedge faz essa varredura por você: cada linha da planilha já traz o
+                            processo, o status e os dados completos da empresa e do empreendimento, prontos para uma
+                            abordagem comercial no mesmo dia.</p>
+
+                        <div class="delivery-recap" aria-hidden="true">
+                            <span class="delivery-item"><span class="dot group-a"></span>Tipo de processo</span>
+                            <span class="delivery-item"><span class="dot group-a"></span>Status do processo</span>
+                            <span class="delivery-item"><span class="dot group-a"></span>Documentos disponíveis</span>
+                            <span class="delivery-item"><span class="dot group-b"></span>Dados jurídicos/fiscais da
+                                empresa</span>
+                            <span class="delivery-item"><span class="dot group-b"></span>Contatos da empresa</span>
+                            <span class="delivery-item"><span class="dot group-c"></span>Nome e endereço do
+                                empreendimento</span>
+                        </div>
 
                         <div class="sheet-mockup">
                             <div class="sheet-mockup-bar">
@@ -1519,7 +2066,7 @@
                                 </table>
                             </div>
                             <div class="sheet-legend">
-                                <span><span class="dot group-a"></span>Processo &amp; status</span>
+                                <span><span class="dot group-a"></span>Informações do processo</span>
                                 <span><span class="dot group-b"></span>Dados da empresa</span>
                                 <span><span class="dot group-c"></span>Dados do empreendimento</span>
                             </div>
@@ -1528,30 +2075,30 @@
                     </div>
                 </section>
 
-                <section class="cko-section">
+                <section class="cko-section dark" aria-labelledby="process-heading">
                     <div class="container">
-                        <p class="section-heading">Como funciona</p>
-                        <div class="mini-steps">
-                            <div class="mini-step">
-                                <div class="mini-step-num">1</div>
-                                <div>
-                                    <strong>Acompanhamento diário</strong>
-                                    <span>Cobrimos as movimentações publicadas pela CETESB todos os dias.</span>
-                                </div>
+                        <p class="section-heading" id="process-heading">Como funciona</p>
+                        <h2 class="section-heading-lg">Da publicação da CETESB ao seu e-mail em horas.</h2>
+                        <p class="lead-text">O processo inteiro é automatizado. Você não precisa acessar nenhum
+                            portal, configurar nenhum alerta nem contratar nenhuma equipe técnica.</p>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="process-step-num">01</div>
+                                <strong>Varredura diária automatizada</strong>
+                                <span>Cobrimos todas as movimentações publicadas pela CETESB, de segunda a sábado,
+                                    cruzando com e-Ambiente e Receita Federal.</span>
                             </div>
-                            <div class="mini-step">
-                                <div class="mini-step-num">2</div>
-                                <div>
-                                    <strong>Dados prontos para abordagem</strong>
-                                    <span>CNPJ, contatos e endereço do empreendimento, já cruzados.</span>
-                                </div>
+                            <div class="process-step">
+                                <div class="process-step-num">02</div>
+                                <strong>Planilha pronta para abordagem</strong>
+                                <span>CNPJ, telefone, e-mail, CNAE e endereço já consolidados &mdash; sem nenhum
+                                    trabalho adicional de pesquisa da sua equipe.</span>
                             </div>
-                            <div class="mini-step">
-                                <div class="mini-step-num">3</div>
-                                <div>
-                                    <strong>Entrega no seu e-mail</strong>
-                                    <span>Planilha pronta, sem precisar acessar nenhum sistema.</span>
-                                </div>
+                            <div class="process-step">
+                                <div class="process-step-num">03</div>
+                                <strong>Entrega pontual no seu e-mail</strong>
+                                <span>Planilha em anexo e link de download. Às 7h do dia de entrega, no fuso de
+                                    Brasília &mdash; antes do expediente começar.</span>
                             </div>
                         </div>
                     </div>
@@ -1559,7 +2106,11 @@
 
                 <section class="cko-section alt">
                     <div class="container">
-                        <p class="section-heading">Planos disponíveis</p>
+                        <p class="section-heading" id="plans-heading">Planos disponíveis</p>
+                        <h2 class="section-heading-lg">Escolha o ritmo da sua vantagem competitiva.</h2>
+                        <p class="lead-text">Ambos os planos entregam a planilha completa &mdash; a diferença é a
+                            frequência de atualização e, com ela, a janela de vantagem competitiva sobre quem ainda
+                            não assina.</p>
                         <div class="plans" id="plans-list"></div>
 
                         <div class="schedule-widget">
@@ -1567,24 +2118,28 @@
                                 <p class="schedule-title">Sua agenda de recebimento</p>
                                 <span class="schedule-badge" id="schedule-badge">Pulse Diário</span>
                             </div>
-                            <div class="schedule-days" id="schedule-days">
-                                <div class="schedule-day">D</div>
-                                <div class="schedule-day">S</div>
-                                <div class="schedule-day">T</div>
-                                <div class="schedule-day">Q</div>
-                                <div class="schedule-day">Q</div>
-                                <div class="schedule-day">S</div>
-                                <div class="schedule-day">S</div>
-                            </div>
-                            <div class="schedule-legend">
-                                <div class="schedule-legend-item">
-                                    <span class="dot monday"></span>
-                                    <span><strong>Segunda, 7h</strong> &mdash; relatório semanal completo</span>
+                            <div class="schedule-timeline">
+                                <div class="schedule-track" aria-hidden="true"></div>
+                                <div class="schedule-days" id="schedule-days" aria-hidden="true">
+                                    <div class="schedule-day">D</div>
+                                    <div class="schedule-day">S</div>
+                                    <div class="schedule-day">T</div>
+                                    <div class="schedule-day">Q</div>
+                                    <div class="schedule-day">Q</div>
+                                    <div class="schedule-day">S</div>
+                                    <div class="schedule-day">S</div>
                                 </div>
-                                <div class="schedule-legend-item" id="schedule-legend-daily">
-                                    <span class="dot daily"></span>
-                                    <span><strong>Terça a sábado, 7h</strong> &mdash; movimentações do dia
-                                        anterior</span>
+                            </div>
+                            <div class="schedule-compare">
+                                <div class="schedule-compare-item" id="compare-weekly">
+                                    <span class="schedule-compare-label">Pulse Semanal</span>
+                                    <strong>Você sabe na próxima segunda, 7h</strong>
+                                </div>
+                                <div class="schedule-compare-divider"></div>
+                                <div class="schedule-compare-item" id="compare-daily">
+                                    <span class="schedule-compare-label">Pulse Diário</span>
+                                    <strong>Você sabe no dia seguinte, 7h</strong>
+                                    <span class="schedule-compare-tag">+6 dias de antecedência</span>
                                 </div>
                             </div>
                             <p class="schedule-note">Horários no fuso de Brasília.</p>
@@ -1606,10 +2161,12 @@
                             </label>
                         </div>
 
-                        <button class="btn-cta" id="btn-subscribe" disabled>
-                            Prosseguir para pagamento &rarr;
-                        </button>
-                        <p class="asaas-note">
+                        <div class="cta-click-zone" id="cta-click-zone">
+                            <button class="btn-cta" id="btn-subscribe" disabled>
+                                Prosseguir para pagamento &rarr;
+                            </button>
+                        </div>
+                        <p class="asaas-note" id="asaas-note">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
@@ -1640,42 +2197,6 @@
                         <div class="faq">
                             <p class="faq-title">Perguntas frequentes</p>
                             <div class="faq-item">
-                                <button type="button" class="faq-item-summary">De onde vêm os dados das
-                                    planilhas?</button>
-                                <div class="faq-item-body">
-                                    <p>Do portal público da CETESB, que acompanhamos todos os dias. Cada empresa
-                                        identificada é cruzada com dados públicos da Receita Federal e da plataforma
-                                        e-Ambiente, para que a planilha já chegue pronta para uso &mdash; sem você
-                                        precisar fazer essa busca manualmente.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button type="button" class="faq-item-summary">Os dados são exclusivos da
-                                    Pulsedge?</button>
-                                <div class="faq-item-body">
-                                    <p>Não. São dados públicos &mdash; qualquer empresa pode acessá-los diretamente nos
-                                        portais oficiais. O que a Pulsedge oferece é a automação dessa busca, entregue
-                                        pronta no seu e-mail, todos os dias.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button type="button" class="faq-item-summary">O que muda depois que eu
-                                    assinar?</button>
-                                <div class="faq-item-body">
-                                    <p>Você passa a receber, por e-mail, a planilha com as movimentações no ritmo do
-                                        plano escolhido &mdash; sem precisar instalar nada ou acessar qualquer painel.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button type="button" class="faq-item-summary">Posso trocar de plano depois?</button>
-                                <div class="faq-item-body">
-                                    <p>Sim. Fale com o suporte e fazemos a troca entre o Pulse Semanal e o Pulse Diário
-                                        a
-                                        partir do próximo ciclo de cobrança.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
                                 <button type="button" class="faq-item-summary">Posso cancelar quando quiser?</button>
                                 <div class="faq-item-body">
                                     <p>Sim, a qualquer momento, sem multa &mdash; basta avisar por e-mail. O
@@ -1697,7 +2218,59 @@
                                 <div class="faq-item-body">
                                     <p>Sim. Toda cobrança &mdash; do Pulse Semanal ou do Pulse Diário &mdash; gera
                                         automaticamente uma nota fiscal de serviço, emitida do CNPJ da Pulsedge para o
-                                        CNPJ da sua empresa, via Asaas.</p>
+                                        CNPJ da sua empresa, via Asaas, que envia a nota por e-mail.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">O que muda depois que eu
+                                    assinar?</button>
+                                <div class="faq-item-body">
+                                    <p>Você passa a receber por e-mail a planilha com as movimentações no ritmo do
+                                        plano escolhido &mdash; sem precisar instalar nada ou acessar qualquer painel.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">De onde vêm os dados das
+                                    planilhas?</button>
+                                <div class="faq-item-body">
+                                    <p>Do portal público da CETESB, que acompanhamos todos os dias. Cada empresa
+                                        identificada é cruzada com dados públicos da Receita Federal e da plataforma
+                                        e-Ambiente, para que a planilha já chegue pronta para uso &mdash; sem você
+                                        precisar fazer essa busca manualmente.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">Os dados são exclusivos da
+                                    Pulsedge?</button>
+                                <div class="faq-item-body">
+                                    <p>Não. São dados públicos &mdash; qualquer empresa pode acessá-los diretamente nos
+                                        portais oficiais. O que a Pulsedge oferece é a automação dessa busca, entregue
+                                        pronta no seu e-mail, todos os dias.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">Posso trocar de plano depois?</button>
+                                <div class="faq-item-body">
+                                    <p>Sim. Fale com o suporte e fazemos a troca entre o Pulse Semanal e o Pulse Diário
+                                        a
+                                        partir do próximo ciclo de cobrança.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">Quando é a data de vencimento da
+                                    assinatura?</button>
+                                <div class="faq-item-body">
+                                    <p>A contagem começa no dia em que você assina. Sua cobrança mensal se repete
+                                        sempre nessa mesma data, no ciclo seguinte.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button type="button" class="faq-item-summary">Posso mudar a data de
+                                    vencimento?</button>
+                                <div class="faq-item-body">
+                                    <p>Sim. Basta pedir pelo e-mail de suporte &mdash; não há custo para fazer essa
+                                        alteração.</p>
                                 </div>
                             </div>
                         </div>
@@ -1804,6 +2377,16 @@
             </p>
         </footer>
 
+        <div class="sticky-cta" id="sticky-cta" role="region" aria-label="Atalho de assinatura">
+            <div class="sticky-cta-info">
+                <span class="sticky-cta-plan" id="sticky-plan-name">Pulse Diário</span>
+                <span class="sticky-cta-price" id="sticky-plan-price">&mdash; <span>/ mês</span></span>
+            </div>
+            <button class="btn-cta-sticky" id="btn-subscribe-sticky">
+                Prosseguir para pagamento &rarr;
+            </button>
+        </div>
+
         <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -1827,12 +2410,13 @@
                 badgeHighlight: false,
                 period: '/ mês',
                 features: [
-                    'Monitoramento do portal CETESB',
-                    'Entrega toda segunda-feira às 7h (horário de Brasília)',
-                    'Relatório semanal completo das movimentações',
-                    'Planilha Excel com dados enriquecidos (CNPJ, contatos, endereço, CNAE)',
-                    'Nota fiscal de serviço emitida em todo ciclo mensal',
+                    'Monitoramento diário do portal CETESB',
+                    'Relatório entregue toda segunda-feira às 7h',
+                    'Planilha completa das movimentações da semana',
+                    'Dados enriquecidos: CNPJ, contatos, endereço e CNAE',
+                    'Nota fiscal de serviço emitida a cada ciclo mensal',
                 ],
+                advantage: null,
             },
             daily: {
                 id: 'daily',
@@ -1841,11 +2425,12 @@
                 badgeHighlight: true,
                 period: '/ mês',
                 features: [
-                    'Tudo do Pulse Semanal',
-                    'Entregas de terça a sábado às 7h (horário de Brasília)',
-                    'Resumo diário das movimentações do dia anterior',
-                    'Até 6 dias de vantagem sobre quem só recebe no relatório semanal',
+                    'Tudo do Pulse Semanal, incluída a entrega de segunda',
+                    'Mais 5 entregas por semana: terça a sábado, às 7h',
+                    'Cada entrega contém um resumo das movimentações do dia anterior',
+                    'Você sabe de cada novo processo ou mudança de status no dia seguinte',
                 ],
+                advantage: 'Até 6 dias de antecedência em relação a quem recebe apenas o relatório semanal — tempo suficiente para uma abordagem comercial antes que a oportunidade fique mais conhecida.',
             },
         };
 
@@ -1891,6 +2476,10 @@
             return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1462f5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
         }
 
+        function lightningIcon() {
+            return '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
+        }
+
         let selectedPlan = null;
         let allPlans = [];
 
@@ -1922,6 +2511,10 @@
                     ? `<span class="plan-badge highlight">${plan.badge}</span>`
                     : `<span class="plan-badge">${plan.badge}</span>`;
 
+                const advantageHtml = plan.advantage
+                    ? `<div class="plan-advantage">${lightningIcon()}<span>${plan.advantage}</span></div>`
+                    : '';
+
                 card.innerHTML = `
                     <div class="plan-card-top">
                         <div>
@@ -1933,6 +2526,7 @@
                     </div>
                     <div class="plan-divider"></div>
                     <ul class="plan-features">${featuresHtml}</ul>
+                    ${advantageHtml}
                 `;
 
                 card.addEventListener('click', () => selectPlan(plan.id));
@@ -1945,6 +2539,7 @@
 
             updateScheduleWidget(selectedPlan ? selectedPlan.id : 'daily');
             updateCTA();
+            updateStickyCTA();
         }
 
         function selectPlan(planId) {
@@ -1956,6 +2551,7 @@
             });
             updateScheduleWidget(planId);
             updateCTA();
+            updateStickyCTA();
         }
 
         function updateScheduleWidget(planId) {
@@ -1966,7 +2562,8 @@
                 else if (isDaily && i >= 2 && i <= 6) el.classList.add('is-daily');
             });
             document.getElementById('schedule-badge').textContent = isDaily ? 'Pulse Diário' : 'Pulse Semanal';
-            document.getElementById('schedule-legend-daily').classList.toggle('is-hidden', !isDaily);
+            document.getElementById('compare-weekly').classList.toggle('is-active', !isDaily);
+            document.getElementById('compare-daily').classList.toggle('is-active', isDaily);
         }
 
         function updateCTA() {
@@ -1974,7 +2571,46 @@
             document.getElementById('btn-subscribe').disabled = !(selectedPlan && consent);
         }
 
+        function updateStickyCTA() {
+            const consentEl = document.getElementById('consent-check');
+            const consent = consentEl ? consentEl.checked : false;
+            const enabled = !!(selectedPlan && consent);
+            document.getElementById('btn-subscribe-sticky').classList.toggle('is-disabled', !enabled);
+
+            if (selectedPlan) {
+                document.getElementById('sticky-plan-name').textContent = selectedPlan.name;
+                document.getElementById('sticky-plan-price').innerHTML = selectedPlan.price + ' <span>/ mês</span>';
+            }
+        }
+
+        function flashConsent() {
+            const consentWrap = document.querySelector('.consent-wrap');
+            consentWrap.classList.remove('consent-alert');
+            void consentWrap.offsetWidth;
+            consentWrap.classList.add('consent-alert');
+            setTimeout(() => consentWrap.classList.remove('consent-alert'), 600);
+        }
+
+        const header = document.querySelector('header');
+        const heroWrap = document.querySelector('.hero-wrap');
+
+        function updateHeaderOnScroll() {
+            const checkoutActive = document.getElementById('state-checkout').classList.contains('active');
+            if (!checkoutActive || !heroWrap) {
+                header.style.background = 'rgba(26, 43, 74, 1)';
+                return;
+            }
+            const headerH = header.offsetHeight;
+            const range = Math.max(heroWrap.offsetHeight - headerH, 1);
+            const progress = Math.min(Math.max(window.scrollY / range, 0), 1);
+            header.style.background = `rgba(26, 43, 74, ${progress})`;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
+            window.addEventListener('resize', updateHeaderOnScroll);
+            updateHeaderOnScroll();
+
             document.getElementById('footer-year').textContent = new Date().getFullYear();
 
             const sheetDate = new Date();
@@ -2010,8 +2646,12 @@
                 });
             });
 
-            document.getElementById('consent-check').addEventListener('change', updateCTA);
-            document.getElementById('btn-subscribe').addEventListener('click', () => {
+            document.getElementById('consent-check').addEventListener('change', () => {
+                updateCTA();
+                updateStickyCTA();
+            });
+
+            function proceedToPayment() {
                 if (!selectedPlan) return;
                 const url = selectedPlan.link;
                 if (!url || url === '#') {
@@ -2019,7 +2659,38 @@
                     return;
                 }
                 window.location.href = url;
+            }
+
+            document.getElementById('btn-subscribe').addEventListener('click', proceedToPayment);
+
+            // Clicks on the disabled button pass through (pointer-events: none) to this wrapper.
+            document.getElementById('cta-click-zone').addEventListener('click', () => {
+                if (document.getElementById('btn-subscribe').disabled) flashConsent();
             });
+
+            document.getElementById('btn-subscribe-sticky').addEventListener('click', () => {
+                const consent = document.getElementById('consent-check').checked;
+                if (selectedPlan && consent) {
+                    proceedToPayment();
+                    return;
+                }
+                const noteRect = document.getElementById('asaas-note').getBoundingClientRect();
+                const scrollBackPadding = 16;
+                window.scrollBy({ top: noteRect.bottom - window.innerHeight + scrollBackPadding, behavior: 'smooth' });
+                setTimeout(flashConsent, 400);
+            });
+
+            const stickyCta = document.getElementById('sticky-cta');
+            const ctaClickZone = document.getElementById('cta-click-zone');
+            window.addEventListener('scroll', () => {
+                if (!ctaClickZone || !document.getElementById('state-checkout').classList.contains('active')) {
+                    stickyCta.classList.remove('visible');
+                    return;
+                }
+                // Only show once the main CTA button has scrolled past the top of the viewport.
+                const pastMainCta = ctaClickZone.getBoundingClientRect().bottom < 0;
+                stickyCta.classList.toggle('visible', pastMainCta);
+            }, { passive: true });
         });
 
         function showState(id) {
@@ -2030,6 +2701,8 @@
             const isExpired = id === 'state-expired';
             document.getElementById('footer-contact-btn').style.display = isExpired ? 'none' : '';
             document.getElementById('footer-contact-text').style.display = isExpired ? '' : 'none';
+
+            updateHeaderOnScroll();
         }
 
         (async () => {

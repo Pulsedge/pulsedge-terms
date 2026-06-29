@@ -1,6 +1,13 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
+function alphaOf(rgbaString) {
+    const match = rgbaString.match(/rgba?\(([^)]+)\)/);
+    if (!match) return null;
+    const parts = match[1].split(',').map(s => s.trim());
+    return parts.length === 4 ? parseFloat(parts[3]) : 1;
+}
+
 const WEEKLY_LINK = 'https://asaas.test.invalid/weekly';
 const DAILY_LINK = 'https://asaas.test.invalid/daily';
 
@@ -87,13 +94,26 @@ test.describe('assinar.html — link valido', () => {
 
         await expect(page.locator('#schedule-badge')).toHaveText('Pulse Diário');
         await expect(page.locator('.schedule-day.is-daily')).toHaveCount(5);
-        await expect(page.locator('#schedule-legend-daily')).toBeVisible();
+        await expect(page.locator('#compare-daily')).toHaveClass(/is-active/);
+        await expect(page.locator('#compare-weekly')).not.toHaveClass(/is-active/);
 
         await page.locator('.plan-card[data-plan-id="weekly"]').click();
         await expect(page.locator('#schedule-badge')).toHaveText('Pulse Semanal');
         await expect(page.locator('.schedule-day.is-daily')).toHaveCount(0);
         await expect(page.locator('.schedule-day.is-weekly')).toHaveCount(1);
-        await expect(page.locator('#schedule-legend-daily')).toBeHidden();
+        await expect(page.locator('#compare-weekly')).toHaveClass(/is-active/);
+        await expect(page.locator('#compare-daily')).not.toHaveClass(/is-active/);
+    });
+
+    test('card do plano diário mostra o callout de vantagem de 6 dias', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        const daily = page.locator('.plan-card[data-plan-id="daily"]');
+        await expect(daily.locator('.plan-advantage')).toContainText('6 dias');
+
+        const weekly = page.locator('.plan-card[data-plan-id="weekly"]');
+        await expect(weekly.locator('.plan-advantage')).toHaveCount(0);
     });
 
     test('ao confirmar, redireciona para o link de pagamento do plano selecionado', async ({ page }) => {
@@ -120,12 +140,95 @@ test.describe('assinar.html — link valido', () => {
         await expect(firstItem).not.toHaveClass(/open/);
     });
 
+    test('FAQ lista as perguntas sobre vencimento da assinatura', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        await expect(page.getByText('Quando é a data de vencimento da assinatura?')).toBeVisible();
+        await expect(page.getByText('Posso mudar a data de vencimento?')).toBeVisible();
+    });
+
     test('checkbox de consentimento aponta para termos e privacidade', async ({ page }) => {
         await mockValidLink(page);
         await page.goto('/assinar?l=lead123');
 
         await expect(page.locator('.consent-text a').first()).toHaveAttribute('href', 'https://pulsedge.com.br/termos');
         await expect(page.locator('.consent-text a').nth(1)).toHaveAttribute('href', 'https://pulsedge.com.br/privacidade');
+    });
+
+    test('clicar no botao desabilitado faz o container de consentimento piscar em vermelho', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        const consentWrap = page.locator('.consent-wrap');
+        await expect(consentWrap).not.toHaveClass(/consent-alert/);
+
+        await page.locator('#cta-click-zone').click({ position: { x: 10, y: 10 } });
+        await expect(consentWrap).toHaveClass(/consent-alert/);
+    });
+
+    test('barra fixa nao aparece enquanto o card de planos e o botao principal ainda estao visiveis', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        await page.locator('#plans-heading').scrollIntoViewIfNeeded();
+        await page.waitForTimeout(100);
+        await expect(page.locator('#sticky-cta')).not.toHaveClass(/visible/);
+
+        await page.locator('#cta-click-zone').scrollIntoViewIfNeeded();
+        await page.waitForTimeout(100);
+        await expect(page.locator('#sticky-cta')).not.toHaveClass(/visible/);
+    });
+
+    test('barra fixa de assinatura aparece ao rolar e reflete o plano selecionado', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        const stickyCta = page.locator('#sticky-cta');
+        await expect(stickyCta).not.toHaveClass(/visible/);
+
+        await page.evaluate(() => {
+            const rect = document.getElementById('cta-click-zone').getBoundingClientRect();
+            window.scrollTo(0, window.scrollY + rect.bottom + 50);
+        });
+        await page.waitForTimeout(100);
+        await expect(stickyCta).toHaveClass(/visible/);
+        await expect(page.locator('#sticky-plan-name')).toHaveText('Pulse Diário');
+
+        await page.locator('.plan-card[data-plan-id="weekly"]').click();
+        await expect(page.locator('#sticky-plan-name')).toHaveText('Pulse Semanal');
+    });
+
+    test('clicar na barra fixa sem consentimento rola para os planos e pisca o consentimento', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        await page.evaluate(() => {
+            const rect = document.getElementById('cta-click-zone').getBoundingClientRect();
+            window.scrollTo(0, window.scrollY + rect.bottom + 50);
+        });
+        await page.waitForTimeout(100);
+
+        await page.locator('#btn-subscribe-sticky').click();
+
+        const consentWrap = page.locator('.consent-wrap');
+        await expect(consentWrap).toHaveClass(/consent-alert/, { timeout: 1000 });
+    });
+
+    test('clicar na barra fixa com consentimento marcado redireciona para o pagamento', async ({ page }) => {
+        await mockValidLink(page);
+        await page.route(DAILY_LINK, route => route.fulfill({ status: 200, contentType: 'text/html', body: '<html>ok</html>' }));
+        await page.goto('/assinar?l=lead123');
+
+        await page.locator('#consent-check').check();
+        await page.evaluate(() => {
+            const rect = document.getElementById('cta-click-zone').getBoundingClientRect();
+            window.scrollTo(0, window.scrollY + rect.bottom + 50);
+        });
+        await page.waitForTimeout(100);
+
+        await page.locator('#btn-subscribe-sticky').click();
+        await page.waitForURL(DAILY_LINK);
     });
 });
 
@@ -158,13 +261,34 @@ test.describe('assinar.html — erro tecnico', () => {
 });
 
 test.describe('assinar.html — estrutura geral', () => {
-    test('header e solido navy e sem nav institucional', async ({ page }) => {
+    test('header comeca transparente sobre o hero, fica solido apos rolar, e nao tem nav institucional', async ({ page }) => {
         await mockValidLink(page);
         await page.goto('/assinar?l=lead123');
 
-        const bg = await page.locator('header').evaluate(el => getComputedStyle(el).backgroundColor);
-        expect(bg).toBe('rgb(26, 43, 74)');
+        const header = page.locator('header');
+        const initialBg = await header.evaluate(el => getComputedStyle(el).backgroundColor);
+        expect(alphaOf(initialBg)).toBeLessThan(0.05);
+
+        await page.evaluate(() => {
+            const wrap = document.querySelector('.hero-wrap');
+            window.scrollTo(0, wrap.offsetHeight);
+        });
+        await page.waitForTimeout(100);
+
+        const scrolledBg = await header.evaluate(el => getComputedStyle(el).backgroundColor);
+        expect(alphaOf(scrolledBg)).toBeGreaterThan(0.95);
+        expect(scrolledBg).toContain('26, 43, 74');
+
         await expect(page.locator('header nav')).toHaveCount(0);
+    });
+
+    test('header fica solido navy nas telas de expirado e erro, mesmo sem rolar', async ({ page }) => {
+        await mockStats(page);
+        await mockSubscribe(page, 422, {});
+        await page.goto('/assinar?l=lead-expirado');
+
+        const bg = await page.locator('header').evaluate(el => getComputedStyle(el).backgroundColor);
+        expect(alphaOf(bg)).toBeGreaterThan(0.95);
     });
 
     test('rodape com ano atual', async ({ page }) => {
