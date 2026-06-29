@@ -296,4 +296,27 @@ test.describe('assinar.html — estrutura geral', () => {
         const year = new Date().getFullYear().toString();
         await expect(page.locator('#footer-year')).toHaveText(year);
     });
+
+    test('datas da planilha de exemplo sao calculadas em relacao a data atual', async ({ page }) => {
+        await mockValidLink(page);
+        await page.goto('/assinar?l=lead123');
+
+        function expectedDate(offsetDays) {
+            const d = new Date();
+            d.setDate(d.getDate() + offsetDays);
+            const dd = String(d.getDate()).padStart(2, '0');
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            return `${dd}/${mm}/${d.getFullYear()}`;
+        }
+
+        const cells = page.locator('[data-offset-days]');
+        const count = await cells.count();
+        expect(count).toBeGreaterThan(0);
+
+        for (let i = 0; i < count; i++) {
+            const cell = cells.nth(i);
+            const offset = parseInt(await cell.getAttribute('data-offset-days'), 10);
+            await expect(cell).toHaveText(expectedDate(offset));
+        }
+    });
 });
