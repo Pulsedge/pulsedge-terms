@@ -366,16 +366,28 @@
 
         .sheet-mockup-bar {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            gap: 4px;
             padding: 10px 16px;
             background: var(--surface);
             border-bottom: 1px solid var(--border);
             font-size: 11px;
+        }
+
+        .sheet-mockup-label {
+            font-weight: 500;
+            letter-spacing: 0.03em;
             color: var(--muted);
         }
 
-        .sheet-mockup-bar svg {
+        .sheet-mockup-file {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted-light);
+        }
+
+        .sheet-mockup-file svg {
             flex-shrink: 0;
         }
 
@@ -1723,10 +1735,10 @@
                 <div class="hero-wrap">
                     <section class="hero">
                         <p class="hero-eyebrow">Inteligência de Mercado</p>
-                        <h1>Cada movimentação da CETESB, <em>traduzida em oportunidade comercial.</em></h1>
-                        <p class="hero-sub">A Pulsedge monitora diariamente o portal da CETESB e entrega por e-mail
-                            uma planilha com cada nova movimentação de licenciamento ambiental no Estado de São Paulo
-                            &mdash; com CNPJ, contatos e endereço prontos para abordagem.</p>
+                        <h1>Descubra oportunidades comerciais <em>antes que seus concorrentes saibam.</em></h1>
+                        <p class="hero-sub">A Pulsedge transforma cada movimentação de licenciamento ambiental
+                            publicada pela CETESB no Estado de São Paulo em uma oportunidade comercial enquanto ela
+                            ainda está surgindo &mdash; entregue por e-mail, pronta para abordagem.</p>
                         <p class="hero-slogan">Chegue primeiro. Sempre.</p>
                     </section>
                 </div>
@@ -1857,13 +1869,16 @@
 
                         <div class="sheet-mockup">
                             <div class="sheet-mockup-bar">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <path d="M14 2v6h6" />
-                                </svg>
-                                <span id="sheet-filename">Diario_Processos_Ambientais.xlsx</span> &mdash;&nbsp; exemplo
-                                interativo
+                                <span class="sheet-mockup-label">Exemplo interativo</span>
+                                <div class="sheet-mockup-file">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        aria-hidden="true">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <path d="M14 2v6h6" />
+                                    </svg>
+                                    <span id="sheet-filename">Diario_Processos_Ambientais.xlsx</span>
+                                </div>
                             </div>
                             <div class="sheet-table-wrap">
                                 <table class="sheet-table">
@@ -2159,9 +2174,9 @@
                             </div>
                             <div class="process-step">
                                 <div class="process-step-num">02</div>
-                                <strong>Planilha pronta para abordagem</strong>
-                                <span>CNPJ, telefone, e-mail, CNAE e endereço já consolidados &mdash; sem nenhum
-                                    trabalho adicional de pesquisa da sua equipe.</span>
+                                <strong>Oportunidade pronta para abordagem</strong>
+                                <span>Cada empresa identificada já chega com contato e dados verificados &mdash; sua
+                                    equipe começa a abordagem no mesmo dia, sem trabalho de pesquisa.</span>
                             </div>
                             <div class="process-step">
                                 <div class="process-step-num">03</div>
@@ -2177,9 +2192,8 @@
                     <div class="container">
                         <p class="section-heading" id="plans-heading">Planos disponíveis</p>
                         <h2 class="section-heading-lg">Escolha o ritmo da sua vantagem competitiva.</h2>
-                        <p class="lead-text">Ambos os planos entregam a planilha completa &mdash; a diferença é a
-                            frequência de atualização e, com ela, a janela de vantagem competitiva sobre quem ainda
-                            não assina.</p>
+                        <p class="lead-text">Ambos os planos entregam a planilha completa &mdash; a diferença é o
+                            quanto antes você sabe. Quem recebe diariamente, sabe primeiro.</p>
                         <div class="plans" id="plans-list"></div>
 
                         <div class="schedule-widget">
@@ -2483,7 +2497,7 @@
                     'Monitoramento diário do portal CETESB',
                     'Relatório entregue toda segunda-feira às 7h',
                     'Planilha completa das movimentações da semana',
-                    'Dados enriquecidos: CNPJ, contatos, endereço e CNAE',
+                    'Cada empresa já chega com contato pronto para abordagem',
                     'Nota fiscal de serviço emitida a cada ciclo mensal',
                 ],
                 advantage: null,
@@ -2496,9 +2510,9 @@
                 period: '/ mês',
                 features: [
                     'Tudo do Pulse Semanal, incluída a entrega de segunda',
-                    'Mais 5 entregas por semana: terça a sábado, às 7h',
-                    'Cada entrega contém um resumo das movimentações do dia anterior',
-                    'Você sabe de cada novo processo ou mudança de status no dia seguinte',
+                    'Atualizações de terça a sábado, às 7h da manhã',
+                    'Você sabe de cada novo processo ou mudança de status no dia seguinte — não na semana seguinte',
+                    'Mais tempo para abordar a oportunidade antes da concorrência',
                 ],
                 advantage: 'Até 6 dias de antecedência em relação a quem recebe apenas o relatório semanal — tempo suficiente para uma abordagem comercial antes que a oportunidade fique mais conhecida.',
             },
