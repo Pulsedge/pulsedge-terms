@@ -164,6 +164,10 @@
             margin-bottom: 10px;
         }
 
+        h2, h3, h4, h5 {
+            scroll-margin-top: 104px;
+        }
+
         p {
             font-size: 14px;
             color: var(--muted);
@@ -322,90 +326,6 @@
             background: #26396a;
         }
 
-        /* Table of contents flutuante — minimapa estilo Notion: riscos por padrão, expande no hover */
-        .toc {
-            position: fixed;
-            top: 50%;
-            right: 14px;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 5px;
-            max-height: 70vh;
-            z-index: 50;
-        }
-
-        .toc-link {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            height: 14px;
-            text-decoration: none;
-        }
-
-        .toc-tick {
-            width: 14px;
-            height: 2px;
-            border-radius: 2px;
-            background: var(--border);
-            flex-shrink: 0;
-            transition: width 0.2s, background 0.2s;
-        }
-
-        .toc-text {
-            font-size: 12px;
-            color: var(--muted);
-            white-space: nowrap;
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-width 0.2s ease, opacity 0.15s ease;
-        }
-
-        .toc:hover .toc-text {
-            max-width: 240px;
-            opacity: 1;
-        }
-
-        .toc-link:hover .toc-text {
-            color: var(--navy);
-        }
-
-        .toc-link.active .toc-tick {
-            width: 20px;
-            background: var(--accent);
-        }
-
-        .toc-link.active .toc-text {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        @media (max-width: 600px) {
-            .toc {
-                right: 6px;
-                gap: 3px;
-            }
-
-            .toc-link {
-                height: 10px;
-            }
-
-            .toc-tick {
-                width: 9px;
-            }
-
-            .toc-link.active .toc-tick {
-                width: 14px;
-            }
-
-            .toc-text {
-                font-size: 11px;
-            }
-        }
-
         @media (max-width: 600px) {
             header {
                 height: 72px;
@@ -414,6 +334,10 @@
 
             .page {
                 padding-top: 72px;
+            }
+
+            h2, h3, h4, h5 {
+                scroll-margin-top: 88px;
             }
 
             .menu-toggle {
@@ -746,8 +670,6 @@
             </svg>
         </button>
 
-        <nav class="toc" id="toc" aria-label="Sumário do documento"></nav>
-
     </div>
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
@@ -765,41 +687,6 @@
             menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
 
-        // const toc = document.getElementById('toc');
-        // const headings = document.querySelectorAll('main h2');
-        // headings.forEach((heading, index) => {
-        //     heading.id = 'section-' + index;
-        //     const link = document.createElement('a');
-        //     link.href = '#' + heading.id;
-        //     link.className = 'toc-link';
-        //     link.setAttribute('aria-label', heading.textContent);
-
-        //     const tick = document.createElement('span');
-        //     tick.className = 'toc-tick';
-        //     const text = document.createElement('span');
-        //     text.className = 'toc-text';
-        //     text.textContent = heading.textContent;
-
-        //     link.appendChild(tick);
-        //     link.appendChild(text);
-        //     link.addEventListener('click', (event) => {
-        //         event.preventDefault();
-        //         heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        //     });
-        //     toc.appendChild(link);
-        // });
-
-        // const tocObserver = new IntersectionObserver((entries) => {
-        //     entries.forEach((entry) => {
-        //         const link = toc.querySelector(`a[href="#${entry.target.id}"]`);
-        //         if (!link) return;
-        //         if (entry.isIntersecting) {
-        //             toc.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('active'));
-        //             link.classList.add('active');
-        //         }
-        //     });
-        // }, { rootMargin: '-20% 0px -70% 0px' });
-        // headings.forEach((heading) => tocObserver.observe(heading));
     </script>
 </body>
 
